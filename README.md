@@ -9,6 +9,10 @@ Kuliah Kerja Praktek - Classy Gorgeous Colorfull
 5. Wisnu Wahyudi - 201843500024 | **Administrator**
 6. Yoel Adrian Sihombing - 201843501024 | **Sales**
 
+---------
+![image](https://user-images.githubusercontent.com/51394535/115120977-94056300-9fda-11eb-903e-644bdb8b92cf.png)
+
+---------
 ## PoC
 ### Form
 ##### (General)
