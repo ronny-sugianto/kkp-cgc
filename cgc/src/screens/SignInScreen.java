@@ -37,9 +37,9 @@ public class SignInScreen extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
         txtPassword = new javax.swing.JPasswordField();
-        jLabel3 = new javax.swing.JLabel();
+        lblLostPassword = new javax.swing.JLabel();
         btnSignIn = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
+        lblMarkCopyright = new javax.swing.JLabel();
         txtClose = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
@@ -93,9 +93,14 @@ public class SignInScreen extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel3.setText("Lupa Password");
+        lblLostPassword.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+        lblLostPassword.setForeground(new java.awt.Color(102, 102, 102));
+        lblLostPassword.setText("Lupa Password");
+        lblLostPassword.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblLostPasswordMouseClicked(evt);
+            }
+        });
 
         btnSignIn.setBackground(new java.awt.Color(153, 169, 193));
         btnSignIn.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
@@ -106,9 +111,9 @@ public class SignInScreen extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel4.setText("Copyright 2021 - Devloid Indonesia");
+        lblMarkCopyright.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
+        lblMarkCopyright.setForeground(new java.awt.Color(204, 204, 204));
+        lblMarkCopyright.setText("Copyright 2021 - Devloid Indonesia");
 
         txtClose.setFont(new java.awt.Font("Poppins", 0, 24)); // NOI18N
         txtClose.setText("X");
@@ -146,14 +151,13 @@ public class SignInScreen extends javax.swing.JFrame {
                                 .addComponent(jLabel1))
                             .addComponent(txtPassword)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblLostPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
                                 .addComponent(btnSignIn, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(29, 29, 29))))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(70, 70, 70)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(29, 29, 29))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblMarkCopyright, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(69, 69, 69))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,9 +179,9 @@ public class SignInScreen extends javax.swing.JFrame {
                 .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSignIn, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                    .addComponent(lblLostPassword))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblMarkCopyright, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(4, 4, 4))
         );
 
@@ -191,7 +195,7 @@ public class SignInScreen extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 15, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -202,25 +206,31 @@ public class SignInScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_txtEmailKeyPressed
 
     private void btnSignInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignInActionPerformed
-        String accountNo = txtEmail.getText();
+        String email = txtEmail.getText();
         String password = String.valueOf(txtPassword.getPassword());
 
-        if (accountNo.trim().length() != 0 && password.trim().length() != 0) {
+        if (!"Email".equals(email) || !"Password".equals(password)) {
+            if (!email.isEmpty() && email.trim().length() != 0 && !password.isEmpty() && password.trim().length() != 0) {
 
-            try {
-                ResultSet result = authService.signIn(accountNo, password);
-                if (result != null && result.getString("full_name") != null) {
-                    this.dispose();
+                try {
+                    ResultSet result = authService.signIn(email, password);
+                    if (result != null && result.getString("full_name") != null) {
+                        this.dispose();
 
-                } else {
-                    JOptionPane.showMessageDialog(this, "Oops! Email Atau Password Tidak Benar, Silakan Perikasa Kembali Akun Anda !");
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Oops! Email Atau Password Tidak Benar, Silakan Periksa Kembali Akun Anda !");
+                    }
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(this, "Oops! Email Atau Password Tidak Benar, Silakan Periksa Kembali Akun Anda !");
                 }
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(this, "Oops! Email Atau Password Tidak Benar, Silakan Perikasa Kembali Akun Anda !");
+
+            } else {
+                JOptionPane.showMessageDialog(this, "Oops! Email Atau Password Tidak Boleh Kosong");
             }
         } else {
             JOptionPane.showMessageDialog(this, "Oops! Email Atau Password Tidak Boleh Kosong");
         }
+
     }//GEN-LAST:event_btnSignInActionPerformed
 
     private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
@@ -264,6 +274,12 @@ public class SignInScreen extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtEmailActionPerformed
 
+    private void lblLostPasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLostPasswordMouseClicked
+        LostPasswordScreen _lostPassword = new LostPasswordScreen();
+        _lostPassword.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_lblLostPasswordMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -302,11 +318,11 @@ public class SignInScreen extends javax.swing.JFrame {
     private javax.swing.JButton btnSignIn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JLabel lblLostPassword;
+    private javax.swing.JLabel lblMarkCopyright;
     private javax.swing.JLabel txtClose;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JPasswordField txtPassword;
