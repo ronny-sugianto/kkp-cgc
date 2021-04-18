@@ -9,6 +9,7 @@ import core.services.AuthService;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import screens.administrator.AdministratorScreen;
 
 /**
  *
@@ -215,6 +216,24 @@ public class SignInScreen extends javax.swing.JFrame {
                 try {
                     ResultSet result = authService.signIn(email, password);
                     if (result != null && result.getString("full_name") != null) {
+                        String roleName = authService.getRole(result.getInt("role_id"));
+                        if (roleName != null) {
+                            switch (roleName) {
+
+                                case "Administrator":
+                                    AdministratorScreen _administratorScreen = new AdministratorScreen(result.getInt("id"));
+                                    _administratorScreen.setVisible(true);
+                                    break;
+                                case "Inventory":
+                                    break;
+                                case "Finance":
+                                    break;
+                                case "Sales":
+                                    break;
+                                default:
+                                    JOptionPane.showMessageDialog(this, "Oops! Terjadi Kesalahan, Mohon Segera Hubungi Administrator");
+                            }
+                        }
                         this.dispose();
 
                     } else {
