@@ -6,7 +6,7 @@ Kuliah Kerja Praktek - Classy Gorgeous Colorfull
 2. Ronny Sugianto - 201843502340 | **Administrator** 
 3. Ridwan - 201843502092 | **Sales**
 4. Vernanda Ramadhanti - 201843502476 | **Finance**
-5. Wisnu Wahyudi - 201843500024 | **Administrator**
+5. Wisnu Wahyudi - 201843500024 | **Administrator | Finance**
 6. Yoel Adrian Sihombing - 201843501024 | **Sales**
 
 ---------
@@ -35,4 +35,7 @@ Kuliah Kerja Praktek - Classy Gorgeous Colorfull
 ##### (Sales)
 - Sales By User
 ##### (Finance)
-- Sales All User
+- Finance Reporting Per Day 
+- Finance Reporting Per Month
+- Finance Reporting Per Year
+
