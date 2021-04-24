@@ -10,6 +10,8 @@ import core.services.AuthService;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import screens.SignInScreen;
+import screens.UpdatePasswordScreen;
 
 /**
  *
@@ -18,7 +20,7 @@ import javax.swing.table.DefaultTableModel;
 public class AdministratorScreen extends javax.swing.JFrame {
 
     private static int USER_ID;
-    private DefaultTableModel modelUser, modelTickets;
+    private DefaultTableModel modelUser, modelUserFillter, modelTickets;
     AuthService authService = new AuthService();
 
     int selectedUserId = 0;
@@ -83,10 +85,13 @@ public class AdministratorScreen extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblTickets = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
+        txtFillterName = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuChangePassword = new javax.swing.JMenuItem();
+        jMenuSignOut = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -157,13 +162,53 @@ public class AdministratorScreen extends javax.swing.JFrame {
         ));
         jScrollPane3.setViewportView(tblTickets);
 
+        jLabel2.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
+        jLabel2.setText("All Users");
+
+        txtFillterName.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtFillterNameFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtFillterNameFocusLost(evt);
+            }
+        });
+        txtFillterName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFillterNameActionPerformed(evt);
+            }
+        });
+        txtFillterName.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                txtFillterNamePropertyChange(evt);
+            }
+        });
+        txtFillterName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtFillterNameKeyPressed(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jLabel3.setText("Find By Name");
+
         jMenu2.setText("Profile");
 
-        jMenuItem1.setText("Change Password");
-        jMenu2.add(jMenuItem1);
+        jMenuChangePassword.setText("Change Password");
+        jMenuChangePassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuChangePasswordActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuChangePassword);
 
-        jMenuItem2.setText("Sign Out");
-        jMenu2.add(jMenuItem2);
+        jMenuSignOut.setText("Sign Out");
+        jMenuSignOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuSignOutActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuSignOut);
 
         jMenuBar1.add(jMenu2);
 
@@ -176,29 +221,39 @@ public class AdministratorScreen extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
+                    .addComponent(jScrollPane3)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(5, 5, 5)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(5, 5, 5)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(btnInsert, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addComponent(jLabel1))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                    .addComponent(btnInsert, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel3)
+                        .addGap(10, 10, 10)
+                        .addComponent(txtFillterName, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(0, 0, 0)
+                .addGap(24, 24, 24)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtFillterName)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
@@ -207,7 +262,7 @@ public class AdministratorScreen extends javax.swing.JFrame {
                         .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -252,6 +307,36 @@ public class AdministratorScreen extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tblViewUsersMouseClicked
 
+    private void jMenuSignOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuSignOutActionPerformed
+        this.dispose();
+        new SignInScreen().setVisible(true);
+    }//GEN-LAST:event_jMenuSignOutActionPerformed
+
+    private void jMenuChangePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuChangePasswordActionPerformed
+        this.dispose();
+        new UpdatePasswordScreen(USER_ID).setVisible(true);
+    }//GEN-LAST:event_jMenuChangePasswordActionPerformed
+
+    private void txtFillterNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFillterNameFocusGained
+        _fillterUser();
+    }//GEN-LAST:event_txtFillterNameFocusGained
+
+    private void txtFillterNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFillterNameFocusLost
+        _fillterUser();
+    }//GEN-LAST:event_txtFillterNameFocusLost
+
+    private void txtFillterNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFillterNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFillterNameActionPerformed
+
+    private void txtFillterNameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFillterNameKeyPressed
+        _fillterUser();
+    }//GEN-LAST:event_txtFillterNameKeyPressed
+
+    private void txtFillterNamePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_txtFillterNamePropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFillterNamePropertyChange
+
     /**
      * @param args the command line arguments
      */
@@ -285,18 +370,50 @@ public class AdministratorScreen extends javax.swing.JFrame {
         });
     }
 
+    private void _fillterUser() {
+
+        DefaultTableModel _tempUserModel = modelUser;
+        ArrayList<Users> data;
+        data = authService.getAllUser();
+        if (txtFillterName.getText().trim().length() != 0) {
+            data = authService.getUserByName(txtFillterName.getText());
+
+        }
+
+        for (int i = tblViewUsers.getRowCount() - 1; i >= 0; i--) {
+            modelUser.removeRow(i);
+        }
+        tblViewUsers.removeAll();
+
+        if (data != null) {
+
+            for (int i = 0; i < data.toArray().length; i++) {
+                Object[] obj = new Object[4];
+                obj[0] = data.get(i).getId();
+                obj[1] = data.get(i).getFullName();
+                obj[2] = data.get(i).getRoleEntity().getName();
+                obj[3] = data.get(i).getEmail();
+                modelUser.addRow(obj);
+            }
+
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnInsert;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuChangePassword;
+    private javax.swing.JMenuItem jMenuSignOut;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable tblTickets;
     private javax.swing.JTable tblViewUsers;
+    private javax.swing.JTextField txtFillterName;
     // End of variables declaration//GEN-END:variables
 }

@@ -184,6 +184,19 @@ public class AuthService {
 
     }
 
+    public void updatePassword(int id, String newPassword) {
+        try {
+            Statement query = CONNECTION.createStatement();
+            query.executeUpdate("UPDATE users SET password = '" + newPassword
+                    + "' where id =" + id
+            );
+
+        } catch (SQLException e) {
+            System.out.println("[updateUser] ERROR: " + e);
+        }
+
+    }
+
     public void deleteUser(int id) {
         try {
             Statement query = CONNECTION.createStatement();
@@ -192,6 +205,37 @@ public class AuthService {
         } catch (SQLException e) {
             System.out.println("[deleteUser] ERROR: " + e);
         }
+    }
+
+    public ArrayList<Users> getUserByName(String name) {
+        try {
+            Statement query = CONNECTION.createStatement();
+            result = query.executeQuery("SELECT users.id,full_name,email, role_id,role.name as 'role_name' FROM users INNER JOIN role on role.id = users.role_id WHERE users.full_name like '%" + name + "%' ORDER BY users.id ASC");
+            ArrayList arr = new ArrayList();
+
+            while (result.next()) {
+                Roles roleEntity = new Roles(
+                        result.getInt("role_id"),
+                        result.getString("role_name")
+                );
+
+                Users obj = new Users(
+                        result.getInt("id"),
+                        result.getString("full_name"),
+                        result.getString("email"),
+                        roleEntity,
+                        null
+                );
+
+                arr.add(obj);
+            }
+            if (!arr.isEmpty()) {
+                return arr;
+            }
+        } catch (SQLException e) {
+            System.out.println("[getAllUser] ERROR: " + e);
+        }
+        return null;
     }
 
     public void close() {
