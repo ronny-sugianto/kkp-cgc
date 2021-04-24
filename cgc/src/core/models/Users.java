@@ -11,16 +11,18 @@ package core.models;
  */
 public class Users {
 
-    int id;
-    String fullName;
-    String email;
-    String roleName;
+    final int id;
+    final String fullName;
+    final String email;
+    final Roles roleEntity;
+    final String password;
 
-    public Users(int id, String fullName, String email, String roleName) {
+    public Users(int id, String fullName, String email, Roles roleEntity, String password) {
         this.id = id;
         this.fullName = fullName;
-        this.roleName = roleName;
+        this.roleEntity = roleEntity;
         this.email = email;
+        this.password = password;
     }
 
     public int getId() {
@@ -35,8 +37,12 @@ public class Users {
         return email;
     }
 
-    public String getRoleName() {
-        return roleName;
+    public Roles getRoleEntity() {
+        return roleEntity;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
 }

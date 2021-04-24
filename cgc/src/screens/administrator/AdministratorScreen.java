@@ -8,6 +8,7 @@ package screens.administrator;
 import core.models.Users;
 import core.services.AuthService;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -20,6 +21,8 @@ public class AdministratorScreen extends javax.swing.JFrame {
     private DefaultTableModel modelUser, modelTickets;
     AuthService authService = new AuthService();
 
+    int selectedUserId = 0;
+
     /**
      * Creates new form AdministratorScreen
      *
@@ -30,12 +33,12 @@ public class AdministratorScreen extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         USER_ID = userId;
         modelUser = new DefaultTableModel();
-        tblView.setModel(modelUser);
+        tblViewUsers.setModel(modelUser);
         modelUser.addColumn("Id");
         modelUser.addColumn("Nama Lengkap");
         modelUser.addColumn("Jabatan");
         modelUser.addColumn("Email");
-        tblView.getColumnModel().getColumn(0).setPreferredWidth(5);
+        tblViewUsers.getColumnModel().getColumn(0).setPreferredWidth(5);
         ArrayList<Users> data;
         data = authService.getAllUser();
         if (data != null) {
@@ -44,7 +47,7 @@ public class AdministratorScreen extends javax.swing.JFrame {
                 Object[] obj = new Object[4];
                 obj[0] = data.get(i).getId();
                 obj[1] = data.get(i).getFullName();
-                obj[2] = data.get(i).getRoleName();
+                obj[2] = data.get(i).getRoleEntity().getName();
                 obj[3] = data.get(i).getEmail();
                 modelUser.addRow(obj);
             }
@@ -61,7 +64,6 @@ public class AdministratorScreen extends javax.swing.JFrame {
     @Override
     public void dispose() {
         super.dispose(); //To change body of generated methods, choose Tools | Templates.
-        authService.close();
     }
 
     /**
@@ -77,7 +79,7 @@ public class AdministratorScreen extends javax.swing.JFrame {
         btnUpdate = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tblView = new javax.swing.JTable();
+        tblViewUsers = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblTickets = new javax.swing.JTable();
@@ -87,6 +89,7 @@ public class AdministratorScreen extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         btnInsert.setBackground(new java.awt.Color(153, 169, 193));
         btnInsert.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
@@ -115,9 +118,9 @@ public class AdministratorScreen extends javax.swing.JFrame {
             }
         });
 
-        tblView.setAutoCreateRowSorter(true);
-        tblView.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        tblView.setModel(new javax.swing.table.DefaultTableModel(
+        tblViewUsers.setAutoCreateRowSorter(true);
+        tblViewUsers.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        tblViewUsers.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -128,10 +131,15 @@ public class AdministratorScreen extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblView.setCellSelectionEnabled(true);
-        tblView.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tblView.setShowGrid(true);
-        jScrollPane2.setViewportView(tblView);
+        tblViewUsers.setCellSelectionEnabled(true);
+        tblViewUsers.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tblViewUsers.setShowGrid(true);
+        tblViewUsers.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblViewUsersMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tblViewUsers);
 
         jLabel1.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         jLabel1.setText("Tickets");
@@ -169,21 +177,23 @@ public class AdministratorScreen extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(5, 5, 5)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnInsert, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(5, 5, 5))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(5, 5, 5)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(btnInsert, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jLabel1))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -193,9 +203,9 @@ public class AdministratorScreen extends javax.swing.JFrame {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnInsert, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(10, 10, 10)
+                        .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
@@ -208,17 +218,39 @@ public class AdministratorScreen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertActionPerformed
-        this.tblView.setVisible(false);
+        this.dispose();
+        new UsersIUScreen(USER_ID, 0).setVisible(true);
 
     }//GEN-LAST:event_btnInsertActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        // TODO add your handling code here:
+        if (selectedUserId != 0) {
+            this.dispose();
+            new UsersIUScreen(USER_ID, selectedUserId).setVisible(true);
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Oops! Mohon Pilih User Terlebih Dahulu !");
+        }
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        // TODO add your handling code here:
+        modelUser.removeRow(tblViewUsers.getSelectedRow());
+        authService.deleteUser(selectedUserId);
     }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void tblViewUsersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblViewUsersMouseClicked
+        // TODO add your handling code here:
+        try {
+            int row = tblViewUsers.getSelectedRow();
+            String tableClick = (tblViewUsers.getModel().getValueAt(row, 0).toString());
+
+            selectedUserId = Integer.parseInt(tableClick);
+
+        } catch (NumberFormatException e) {
+            System.out.println("[tblViewUsersMouseClicked] ERROR : " + e);
+
+        }
+    }//GEN-LAST:event_tblViewUsersMouseClicked
 
     /**
      * @param args the command line arguments
@@ -262,10 +294,9 @@ public class AdministratorScreen extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable tblTickets;
-    private javax.swing.JTable tblView;
+    private javax.swing.JTable tblViewUsers;
     // End of variables declaration//GEN-END:variables
 }
