@@ -238,6 +238,32 @@ public class AuthService {
         return null;
     }
 
+    public ArrayList<Tickets> getTicketsByRoleId(int roleId) {
+        try {
+            Statement query = CONNECTION.createStatement();
+            result = query.executeQuery("SELECT tickets.id, timestamp , users.full_name,ticket FROM tickets INNER JOIN users on users.id = user_id WHERE tickets.role_id =" + roleId + " GROUP BY timestamp DESC");
+            ArrayList arr = new ArrayList();
+
+            while (result.next()) {
+
+                Tickets obj = new Tickets(
+                        result.getInt("id"),
+                        result.getDate("timestamp"),
+                        result.getString("full_name"),
+                        result.getString("ticket")
+                );
+
+                arr.add(obj);
+            }
+            if (!arr.isEmpty()) {
+                return arr;
+            }
+        } catch (SQLException e) {
+            System.out.println("[getTicketsByRoleId] ERROR: " + e);
+        }
+        return null;
+    }
+
     public void close() {
         try {
             CONNECTION.close();

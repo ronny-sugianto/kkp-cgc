@@ -5,8 +5,10 @@
  */
 package screens.administrator;
 
+import core.models.Tickets;
 import core.models.Users;
 import core.services.AuthService;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -57,10 +59,29 @@ public class AdministratorScreen extends javax.swing.JFrame {
         }
 
         modelTickets = new DefaultTableModel();
-        tblTickets.setModel(modelTickets);
+        tblViewTickets.setModel(modelTickets);
         modelTickets.addColumn("Id");
-        modelTickets.addColumn("Judul Ticket");
-        modelTickets.addColumn("Status");
+        modelTickets.addColumn("Receive Date");
+        modelTickets.addColumn("From User");
+        modelTickets.addColumn("Title");
+        tblViewTickets.getColumnModel().getColumn(0).setPreferredWidth(5);
+        ArrayList<Tickets> ticketsData;
+        ticketsData = authService.getTicketsByRoleId(1);
+        if (ticketsData != null) {
+
+            for (int i = 0; i < ticketsData.toArray().length; i++) {
+                // Parse DateFormat
+                SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM yyyy, hh:mm");
+                Object[] obj = new Object[4];
+
+                obj[0] = ticketsData.get(i).getId();
+                obj[1] = formatter.format(ticketsData.get(i).getTimestamp());
+                obj[2] = ticketsData.get(i).getFullName();
+                obj[3] = ticketsData.get(i).getTicket();
+                modelTickets.addRow(obj);
+            }
+
+        }
     }
 
     @Override
@@ -84,7 +105,7 @@ public class AdministratorScreen extends javax.swing.JFrame {
         tblViewUsers = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        tblTickets = new javax.swing.JTable();
+        tblViewTickets = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         txtFillterName = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -149,7 +170,7 @@ public class AdministratorScreen extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         jLabel1.setText("Tickets");
 
-        tblTickets.setModel(new javax.swing.table.DefaultTableModel(
+        tblViewTickets.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -160,7 +181,7 @@ public class AdministratorScreen extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane3.setViewportView(tblTickets);
+        jScrollPane3.setViewportView(tblViewTickets);
 
         jLabel2.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         jLabel2.setText("All Users");
@@ -412,7 +433,7 @@ public class AdministratorScreen extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuSignOut;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable tblTickets;
+    private javax.swing.JTable tblViewTickets;
     private javax.swing.JTable tblViewUsers;
     private javax.swing.JTextField txtFillterName;
     // End of variables declaration//GEN-END:variables
