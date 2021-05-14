@@ -98,6 +98,7 @@ public class AdministratorScreen extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        popupMenu1 = new java.awt.PopupMenu();
         btnInsert = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
@@ -111,8 +112,11 @@ public class AdministratorScreen extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
+        menuReport = new javax.swing.JMenuItem();
         jMenuChangePassword = new javax.swing.JMenuItem();
         jMenuSignOut = new javax.swing.JMenuItem();
+
+        popupMenu1.setLabel("popupMenu1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -213,7 +217,16 @@ public class AdministratorScreen extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel3.setText("Find By Name");
 
-        jMenu2.setText("Profile");
+        jMenu2.setText("Menu");
+
+        menuReport.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.SHIFT_MASK));
+        menuReport.setText("Reports");
+        menuReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuReportActionPerformed(evt);
+            }
+        });
+        jMenu2.add(menuReport);
 
         jMenuChangePassword.setText("Change Password");
         jMenuChangePassword.addActionListener(new java.awt.event.ActionListener() {
@@ -315,12 +328,13 @@ public class AdministratorScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void tblViewUsersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblViewUsersMouseClicked
-        // TODO add your handling code here:
         try {
             int row = tblViewUsers.getSelectedRow();
-            String tableClick = (tblViewUsers.getModel().getValueAt(row, 0).toString());
+            if (row > 0) {
+                String tableClick = (tblViewUsers.getModel().getValueAt(row, 0).toString());
 
-            selectedUserId = Integer.parseInt(tableClick);
+                selectedUserId = Integer.parseInt(tableClick);
+            }
 
         } catch (NumberFormatException e) {
             System.out.println("[tblViewUsersMouseClicked] ERROR : " + e);
@@ -357,6 +371,10 @@ public class AdministratorScreen extends javax.swing.JFrame {
     private void txtFillterNamePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_txtFillterNamePropertyChange
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFillterNamePropertyChange
+
+    private void menuReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuReportActionPerformed
+
+    }//GEN-LAST:event_menuReportActionPerformed
 
     /**
      * @param args the command line arguments
@@ -433,6 +451,8 @@ public class AdministratorScreen extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuSignOut;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JMenuItem menuReport;
+    private java.awt.PopupMenu popupMenu1;
     private javax.swing.JTable tblViewTickets;
     private javax.swing.JTable tblViewUsers;
     private javax.swing.JTextField txtFillterName;

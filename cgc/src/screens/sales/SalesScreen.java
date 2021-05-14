@@ -27,21 +27,260 @@ public class SalesScreen extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
+        txtFillterName4 = new javax.swing.JTextField();
+        jSeparator1 = new javax.swing.JSeparator();
+        txtFillterName5 = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jPanel_left_second = new javax.swing.JPanel();
+        btnUbah = new javax.swing.JButton();
+        jSeparator2 = new javax.swing.JSeparator();
+        btnUbah1 = new javax.swing.JButton();
+        btnUbah2 = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
+        txtFillterName4.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtFillterName4FocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtFillterName4FocusLost(evt);
+            }
+        });
+        txtFillterName4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFillterName4ActionPerformed(evt);
+            }
+        });
+        txtFillterName4.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                txtFillterName4PropertyChange(evt);
+            }
+        });
+        txtFillterName4.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtFillterName4KeyPressed(evt);
+            }
+        });
+
+        txtFillterName5.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtFillterName5FocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtFillterName5FocusLost(evt);
+            }
+        });
+        txtFillterName5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFillterName5ActionPerformed(evt);
+            }
+        });
+        txtFillterName5.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                txtFillterName5PropertyChange(evt);
+            }
+        });
+        txtFillterName5.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtFillterName5KeyPressed(evt);
+            }
+        });
+
+        jLabel1.setText("Jumlah");
+
+        jButton1.setText("Tambah");
+
+        jLabel2.setText("Total Pembelian");
+
+        jLabel3.setFont(new java.awt.Font("Lucida Grande", 2, 18)); // NOI18N
+        jLabel3.setText("Rp. 2.500.000,-");
+
+        jPanel_left_second.setBackground(new java.awt.Color(255, 255, 255));
+
+        btnUbah.setText("Ubah");
+
+        javax.swing.GroupLayout jPanel_left_secondLayout = new javax.swing.GroupLayout(jPanel_left_second);
+        jPanel_left_second.setLayout(jPanel_left_secondLayout);
+        jPanel_left_secondLayout.setHorizontalGroup(
+            jPanel_left_secondLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_left_secondLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel_left_secondLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnUbah, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel_left_secondLayout.setVerticalGroup(
+            jPanel_left_secondLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_left_secondLayout.createSequentialGroup()
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnUbah, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        btnUbah1.setText("Transaksikan");
+
+        btnUbah2.setText("Hapus");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jSeparator1)
+            .addComponent(jPanel_left_second, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtFillterName4)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtFillterName5, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel1))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btnUbah1, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(btnUbah2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(txtFillterName4, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtFillterName5, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel_left_second, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnUbah2, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnUbah1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addGap(2, 2, 2)
+                .addComponent(jLabel3)
+                .addGap(5, 5, 5))
+        );
+
+        jMenu1.setText("Akun");
+
+        jMenuItem1.setText("Ganti Password");
+        jMenu1.add(jMenuItem1);
+
+        jMenuItem2.setText("Keluar");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
+
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 625, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(jScrollPane1)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtFillterName4FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFillterName4FocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFillterName4FocusGained
+
+    private void txtFillterName4FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFillterName4FocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFillterName4FocusLost
+
+    private void txtFillterName4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFillterName4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFillterName4ActionPerformed
+
+    private void txtFillterName4PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_txtFillterName4PropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFillterName4PropertyChange
+
+    private void txtFillterName4KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFillterName4KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFillterName4KeyPressed
+
+    private void txtFillterName5FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFillterName5FocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFillterName5FocusGained
+
+    private void txtFillterName5FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFillterName5FocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFillterName5FocusLost
+
+    private void txtFillterName5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFillterName5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFillterName5ActionPerformed
+
+    private void txtFillterName5PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_txtFillterName5PropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFillterName5PropertyChange
+
+    private void txtFillterName5KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFillterName5KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFillterName5KeyPressed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -79,5 +318,24 @@ public class SalesScreen extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnUbah;
+    private javax.swing.JButton btnUbah1;
+    private javax.swing.JButton btnUbah2;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel_left_second;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTextField txtFillterName4;
+    private javax.swing.JTextField txtFillterName5;
     // End of variables declaration//GEN-END:variables
 }
