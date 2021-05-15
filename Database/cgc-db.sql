@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 17, 2021 at 06:45 PM
+-- Generation Time: May 14, 2021 at 08:45 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -33,7 +33,8 @@ CREATE TABLE `inventory` (
   `id` int(11) NOT NULL,
   `name` varchar(30) NOT NULL,
   `qty` int(10) NOT NULL,
-  `price` int(10) NOT NULL
+  `price` int(10) NOT NULL,
+  `timestamp` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -71,6 +72,14 @@ CREATE TABLE `tickets` (
   `ticket` text NOT NULL,
   `isDone` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tickets`
+--
+
+INSERT INTO `tickets` (`id`, `role_id`, `user_id`, `timestamp`, `ticket`, `isDone`) VALUES
+(1, 1, 1, '2021-04-24 14:38:54', 'Reset Password', 0),
+(2, 1, 9, '2021-04-24 14:52:16', 'Reset Password', 0);
 
 -- --------------------------------------------------------
 
@@ -117,12 +126,12 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `full_name`, `email`, `password`, `role_id`) VALUES
-(1, 'Ronny Sugianto', '201843502340@kkp.it', 'root2021', 1),
-(7, 'Wisnu Wahyudi', '201843500024@kkp.it', 'root2021', 1),
+(1, 'Ronny Sugianto', '201843502340@kkp.it', 'root2020', 1),
+(7, 'Wisnu Wahyudi', '201843500024@kkp.it', 'root2021', 3),
 (8, 'Riza Herman', '201843501782@kkp.it', 'root2021', 2),
 (9, 'Vernanda Ramadhanti', '201843502476@kkp.it', 'root2021', 3),
 (10, 'Ridwan', '201843502092@kkp.it', 'root2021', 4),
-(11, 'Yoel Adrian Sihombing', '201843501024@kkp.it', 'root2021', 4);
+(13, 'Yoel Sihombing', 'yoel.sihombing@kkp.it', 'root2021', 4);
 
 --
 -- Indexes for dumped tables
@@ -178,7 +187,7 @@ ALTER TABLE `role`
 -- AUTO_INCREMENT for table `tickets`
 --
 ALTER TABLE `tickets`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `transaction`
@@ -190,4 +199,9 @@ ALTER TABLE `transaction`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
