@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fadd50df-9696-4ec2-8f85-6468538e6b5c">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="times" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT * FROM inventory where timestamp = $P{times}]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="qty" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="price" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="timestamp" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="492bb1b5-902b-4760-826d-d8c265351444" x="110" y="8" width="393" height="60"/>
+				<textElement>
+					<font size="20"/>
+				</textElement>
+				<text><![CDATA[Informasi Inventory Berdasarkan Ketentuan DATE(Month,Day,Year)]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<line>
+				<reportElement uuid="91284233-a06d-4986-a368-f6109f9c7cf6" x="33" y="18" width="497" height="1"/>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="391" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="9779961c-a9fb-4e5e-ad15-564a44b17c9e" x="16" y="12" width="149" height="40"/>
+				<textElement>
+					<font size="20"/>
+				</textElement>
+				<text><![CDATA[ID :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9779961c-a9fb-4e5e-ad15-564a44b17c9e" x="16" y="66" width="149" height="40"/>
+				<textElement>
+					<font size="20"/>
+				</textElement>
+				<text><![CDATA[Name : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9779961c-a9fb-4e5e-ad15-564a44b17c9e" x="16" y="121" width="149" height="40"/>
+				<textElement>
+					<font size="20"/>
+				</textElement>
+				<text><![CDATA[Jumlah : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9779961c-a9fb-4e5e-ad15-564a44b17c9e" x="16" y="191" width="149" height="40"/>
+				<textElement>
+					<font size="20"/>
+				</textElement>
+				<text><![CDATA[Harga :      Rp.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9779961c-a9fb-4e5e-ad15-564a44b17c9e" x="16" y="250" width="94" height="40"/>
+				<textElement>
+					<font size="20"/>
+				</textElement>
+				<text><![CDATA[Date : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="b70e5161-b5d1-4228-8970-26531410320c" x="206" y="12" width="310" height="40"/>
+				<textElement>
+					<font size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b70e5161-b5d1-4228-8970-26531410320c" x="206" y="66" width="310" height="40"/>
+				<textElement>
+					<font size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b70e5161-b5d1-4228-8970-26531410320c" x="206" y="121" width="310" height="40"/>
+				<textElement>
+					<font size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{qty}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b70e5161-b5d1-4228-8970-26531410320c" x="206" y="191" width="310" height="40"/>
+				<textElement>
+					<font size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{price}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b70e5161-b5d1-4228-8970-26531410320c" x="206" y="250" width="310" height="40"/>
+				<textElement>
+					<font size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{timestamp}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

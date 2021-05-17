@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d0f0f140-b85c-454d-b284-4c5d47c5f1f8">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="transcation_id" class="java.lang.String"/>
+	<parameter name="user_id" class="java.lang.String"/>
+	<parameter name="inventory_id" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT users.full_name as "account_name",inventory.name as "product_name",transaction_detail.qty,transaction_detail.price as "amount_payment", transaction.timestamp FROM transaction_detail INNER JOIN transaction on transaction.id = transaction_detail.transaction_id INNER JOIN users on users.id = user_id INNER JOIN inventory on inventory.id = inventory_id;]]>
+	</queryString>
+	<field name="account_name" class="java.lang.String"/>
+	<field name="product_name" class="java.lang.String"/>
+	<field name="qty" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="amount_payment" class="java.lang.Integer"/>
+	<field name="timestamp" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="cab4d933-7384-4d8f-b31b-108884dae1ac" x="242" y="14" width="394" height="52"/>
+				<textElement>
+					<font size="32"/>
+				</textElement>
+				<text><![CDATA[Informasi Semua Transaksi]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<line>
+				<reportElement uuid="a9689a79-bfa0-40b5-a77e-ebcbdcd9193c" x="52" y="15" width="705" height="1"/>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="296" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="ec9f083f-6a4c-45bf-af40-d0b7bf66b2dc" x="20" y="11" width="174" height="37"/>
+				<textElement>
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[Nama Lengkap :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ec9f083f-6a4c-45bf-af40-d0b7bf66b2dc" x="20" y="58" width="174" height="37"/>
+				<textElement>
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[Nama Produk : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ec9f083f-6a4c-45bf-af40-d0b7bf66b2dc" x="20" y="119" width="174" height="37"/>
+				<textElement>
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[Quantity : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ec9f083f-6a4c-45bf-af40-d0b7bf66b2dc" x="20" y="176" width="174" height="37"/>
+				<textElement>
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[Harga :  ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ec9f083f-6a4c-45bf-af40-d0b7bf66b2dc" x="20" y="241" width="174" height="37"/>
+				<textElement>
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[TimesTamp : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="2b895ea7-bbe9-41d1-9ad0-67b3b01db755" x="258" y="12" width="337" height="36"/>
+				<textElement>
+					<font size="20" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{account_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="2b895ea7-bbe9-41d1-9ad0-67b3b01db755" x="258" y="58" width="337" height="36"/>
+				<textElement>
+					<font size="20" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{product_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="2b895ea7-bbe9-41d1-9ad0-67b3b01db755" x="258" y="120" width="337" height="36"/>
+				<textElement>
+					<font size="20" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{qty}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="2b895ea7-bbe9-41d1-9ad0-67b3b01db755" x="258" y="176" width="337" height="36"/>
+				<textElement>
+					<font size="20" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{amount_payment}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="2b895ea7-bbe9-41d1-9ad0-67b3b01db755" x="258" y="241" width="337" height="36"/>
+				<textElement>
+					<font size="20" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{timestamp}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
