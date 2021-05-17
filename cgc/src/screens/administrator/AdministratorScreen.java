@@ -5,13 +5,23 @@
  */
 package screens.administrator;
 
+import core.client.SqlClient;
 import core.models.Tickets;
 import core.models.Users;
 import core.services.AuthService;
+import static java.awt.Frame.MAXIMIZED_BOTH;
+import java.sql.Connection;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import javax.swing.JOptionPane;
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 import screens.SignInScreen;
 import screens.UpdatePasswordScreen;
 
@@ -82,6 +92,10 @@ public class AdministratorScreen extends javax.swing.JFrame {
             }
 
         }
+    }
+
+    public AdministratorScreen() {
+   //     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -372,8 +386,48 @@ public class AdministratorScreen extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFillterNamePropertyChange
 
+    public void printOut(String location,HashMap paramsData){
+         Connection conn = new SqlClient().instance();
+        JasperReport jp;
+ 
+        
+        String path = ".\\src\\e_report\\"+location;
+        //udah coba running nu sql setting dulu
+  
+          try{
+              jp = (JasperReport) JRLoader.loadObjectFromFile(path);
+              JasperPrint jprint = JasperFillManager.fillReport(path,paramsData,conn);
+              JasperViewer jviewer = new JasperViewer(jprint,false);
+              jviewer.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+              jviewer.setVisible(true);
+              jviewer.setExtendedState(MAXIMIZED_BOTH);
+          }catch(Exception e){
+              JOptionPane.showMessageDialog(null,"Error "+e);
+          }
+    }
+    
     private void menuReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuReportActionPerformed
-
+         JOptionPane.showMessageDialog(null,"Please wait...");
+        printOut("report_Inventory_AllStock.jasper",null);
+//    Connection conn = new SqlClient().instance();
+       // JasperReport jp;
+     /*   String path = ".\\src\\e_report\\report_Inventory_AllStock.jasper";
+        //udah coba running nu sql setting dulu
+          try{
+              jp = (JasperReport) JRLoader.loadObjectFromFile(path);
+              JasperPrint jprint = JasperFillManager.fillReport(path,null,conn);
+              JasperViewer jviewer = new JasperViewer(jprint,false);
+              jviewer.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+              jviewer.setVisible(true);
+              jviewer.setExtendedState(MAXIMIZED_BOTH);
+          }catch(Exception e){
+              JOptionPane.showMessageDialog(null,"Error "+e);
+          }
+        */
+          
+         
+        
+       //
     }//GEN-LAST:event_menuReportActionPerformed
 
     /**
