@@ -460,8 +460,8 @@ public class InventoryScreen extends javax.swing.JFrame {
         // TODO add your handling code here:
         AdministratorScreen obj = new AdministratorScreen();
         HashMap _hash = new HashMap();
-        _hash.put("times","2021-05-17");
-        obj.printOut("report_ShowInventory_Ketentuan.jasper",_hash);
+        _hash.put("waktu","2021-05-17");
+        obj.printOut("report_Inventory_ByDateMonthOrYear.jasper",_hash);
         
         
     }//GEN-LAST:event_btnCetakActionPerformed
