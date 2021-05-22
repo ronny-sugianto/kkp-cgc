@@ -5,7 +5,14 @@
  */
 package screens.inventory;
 
+import core.models.Inventory;
+import core.services.InventoryService;
+import java.awt.HeadlessException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import screens.SignInScreen;
 import screens.administrator.AdministratorScreen;
 
 /**
@@ -14,15 +21,72 @@ import screens.administrator.AdministratorScreen;
  */
 public class InventoryScreen extends javax.swing.JFrame {
 
+    InventoryService inventoryService = new InventoryService();
+    private DefaultTableModel modelInventory;
+    int selectedInventoryId = 0;
+    private static int USER_ID;
+
     /**
      * Creates new form InventoryScreen
+     *
+     * @param userId
      */
-    public InventoryScreen() {
+    public InventoryScreen(int userId) {
         initComponents();
-    }
-    // bukan kurang nu, emg blm di bikin dialognya.. jd pada saat user klik menu report nnti ada dialog lagi
-    //
+        setLocationRelativeTo(null);
+        USER_ID = userId;
+        modelInventory = new DefaultTableModel();
+        tblViewInventory.setModel(modelInventory);
+        modelInventory.addColumn("Id");
+        modelInventory.addColumn("Nama Barang");
+        modelInventory.addColumn("Stock Barang");
+        modelInventory.addColumn("Harga Barang");
+        tblViewInventory.getColumnModel().getColumn(0).setPreferredWidth(5);
+        ArrayList<Inventory> data;
+        data = inventoryService.getAll();
+        if (data != null) {
 
+            for (int i = 0; i < data.toArray().length; i++) {
+                Object[] obj = new Object[4];
+                obj[0] = data.get(i).getId();
+                obj[1] = data.get(i).getName();
+                obj[2] = data.get(i).getQty();
+                obj[3] = data.get(i).getPrice();
+                modelInventory.addRow(obj);
+            }
+
+        }
+    }
+
+    private void _fillterInventory() {
+
+        ArrayList<Inventory> data;
+        data = inventoryService.getAll();
+        if (txtFillter.getText().trim().length() != 0) {
+            data = inventoryService.getByName(txtFillter.getText());
+
+        }
+
+        for (int i = tblViewInventory.getRowCount() - 1; i >= 0; i--) {
+            modelInventory.removeRow(i);
+        }
+        tblViewInventory.removeAll();
+
+        if (data != null) {
+
+            for (int i = 0; i < data.toArray().length; i++) {
+                Object[] obj = new Object[4];
+                obj[0] = data.get(i).getId();
+                obj[1] = data.get(i).getName();
+                obj[2] = data.get(i).getQty();
+                obj[3] = data.get(i).getPrice();
+                modelInventory.addRow(obj);
+            }
+
+        }
+    }
+
+    //
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -32,32 +96,27 @@ public class InventoryScreen extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        txtFillterName = new javax.swing.JTextField();
-        txtFillterName1 = new javax.swing.JTextField();
-        txtFillterName2 = new javax.swing.JTextField();
-        txtFillterName3 = new javax.swing.JTextField();
+        txtName = new javax.swing.JTextField();
+        txtHarga = new javax.swing.JTextField();
+        txtJumlah = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
-        tblViewTickets = new javax.swing.JTable();
-        jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        txtFillterName4 = new javax.swing.JTextField();
+        tblViewInventory = new javax.swing.JTable();
+        jpanel = new javax.swing.JPanel();
+        btnCari = new javax.swing.JButton();
+        txtFillter = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         btnAdd = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jMenuBar1 = new javax.swing.JMenuBar();
+        btnUbah = new javax.swing.JButton();
+        btnHapus = new javax.swing.JButton();
+        jMenu = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
         btnCetak = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel1.setText("ID");
 
         jLabel2.setText("NAMA");
 
@@ -65,103 +124,79 @@ public class InventoryScreen extends javax.swing.JFrame {
 
         jLabel4.setText("JUMLAH");
 
-        txtFillterName.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtName.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                txtFillterNameFocusGained(evt);
+                txtNameFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                txtFillterNameFocusLost(evt);
+                txtNameFocusLost(evt);
             }
         });
-        txtFillterName.addActionListener(new java.awt.event.ActionListener() {
+        txtName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFillterNameActionPerformed(evt);
+                txtNameActionPerformed(evt);
             }
         });
-        txtFillterName.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+        txtName.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                txtFillterNamePropertyChange(evt);
+                txtNamePropertyChange(evt);
             }
         });
-        txtFillterName.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtName.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtFillterNameKeyPressed(evt);
+                txtNameKeyPressed(evt);
             }
         });
 
-        txtFillterName1.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtHarga.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                txtFillterName1FocusGained(evt);
+                txtHargaFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                txtFillterName1FocusLost(evt);
+                txtHargaFocusLost(evt);
             }
         });
-        txtFillterName1.addActionListener(new java.awt.event.ActionListener() {
+        txtHarga.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFillterName1ActionPerformed(evt);
+                txtHargaActionPerformed(evt);
             }
         });
-        txtFillterName1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+        txtHarga.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                txtFillterName1PropertyChange(evt);
+                txtHargaPropertyChange(evt);
             }
         });
-        txtFillterName1.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtHarga.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtFillterName1KeyPressed(evt);
+                txtHargaKeyPressed(evt);
             }
         });
 
-        txtFillterName2.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtJumlah.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                txtFillterName2FocusGained(evt);
+                txtJumlahFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                txtFillterName2FocusLost(evt);
+                txtJumlahFocusLost(evt);
             }
         });
-        txtFillterName2.addActionListener(new java.awt.event.ActionListener() {
+        txtJumlah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFillterName2ActionPerformed(evt);
+                txtJumlahActionPerformed(evt);
             }
         });
-        txtFillterName2.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+        txtJumlah.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                txtFillterName2PropertyChange(evt);
+                txtJumlahPropertyChange(evt);
             }
         });
-        txtFillterName2.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtJumlah.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtFillterName2KeyPressed(evt);
+                txtJumlahKeyPressed(evt);
             }
         });
 
-        txtFillterName3.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtFillterName3FocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtFillterName3FocusLost(evt);
-            }
-        });
-        txtFillterName3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFillterName3ActionPerformed(evt);
-            }
-        });
-        txtFillterName3.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                txtFillterName3PropertyChange(evt);
-            }
-        });
-        txtFillterName3.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtFillterName3KeyPressed(evt);
-            }
-        });
-
-        tblViewTickets.setModel(new javax.swing.table.DefaultTableModel(
+        tblViewInventory.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -172,38 +207,43 @@ public class InventoryScreen extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane3.setViewportView(tblViewTickets);
+        tblViewInventory.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblViewInventoryMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(tblViewInventory);
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
+        jpanel.setBackground(new java.awt.Color(204, 204, 204));
 
-        jButton1.setText("Cari");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnCari.setText("Cari");
+        btnCari.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnCariActionPerformed(evt);
             }
         });
 
-        txtFillterName4.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtFillter.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                txtFillterName4FocusGained(evt);
+                txtFillterFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                txtFillterName4FocusLost(evt);
+                txtFillterFocusLost(evt);
             }
         });
-        txtFillterName4.addActionListener(new java.awt.event.ActionListener() {
+        txtFillter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFillterName4ActionPerformed(evt);
+                txtFillterActionPerformed(evt);
             }
         });
-        txtFillterName4.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+        txtFillter.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                txtFillterName4PropertyChange(evt);
+                txtFillterPropertyChange(evt);
             }
         });
-        txtFillterName4.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtFillter.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtFillterName4KeyPressed(evt);
+                txtFillterKeyPressed(evt);
             }
         });
 
@@ -214,60 +254,62 @@ public class InventoryScreen extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("Ubah");
-
-        jButton4.setText("Hapus");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnUbah.setText("Ubah");
+        btnUbah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnUbahActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        btnHapus.setText("Hapus");
+        btnHapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHapusActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jpanelLayout = new javax.swing.GroupLayout(jpanel);
+        jpanel.setLayout(jpanelLayout);
+        jpanelLayout.setHorizontalGroup(
+            jpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpanelLayout.createSequentialGroup()
                         .addComponent(jSeparator1)
                         .addContainerGap())
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtFillterName4)
+                    .addGroup(jpanelLayout.createSequentialGroup()
+                        .addComponent(txtFillter)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1)
+                        .addComponent(btnCari)
                         .addGap(21, 21, 21))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(jpanelLayout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(btnAdd)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnUbah, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(14, Short.MAX_VALUE))))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        jpanelLayout.setVerticalGroup(
+            jpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpanelLayout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(txtFillterName4))
+                .addGroup(jpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCari)
+                    .addComponent(txtFillter))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(btnUbah, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 15, Short.MAX_VALUE))
         );
 
         jMenu1.setText("Menu");
-
-        jMenuItem1.setText("Ganti Password");
-        jMenu1.add(jMenuItem1);
 
         btnCetak.setText("Cetak Laporan");
         btnCetak.addActionListener(new java.awt.event.ActionListener() {
@@ -285,35 +327,31 @@ public class InventoryScreen extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem3);
 
-        jMenuBar1.add(jMenu1);
+        jMenu.add(jMenu1);
 
-        setJMenuBar(jMenuBar1);
+        setJMenuBar(jMenu);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(17, 17, 17)
+                .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addGap(18, 18, 18)
-                        .addComponent(txtFillterName2, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtHarga, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addGap(12, 12, 12)
-                        .addComponent(txtFillterName3, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
+                        .addComponent(jLabel2)
                         .addGap(25, 25, 25)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtFillterName, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtFillterName1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(36, 36, 36)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(35, 35, 35)
+                .addComponent(jpanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -325,23 +363,20 @@ public class InventoryScreen extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jpanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(txtFillterName))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(15, 15, 15)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(txtFillterName1))
+                            .addComponent(txtName))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(txtFillterName2))
+                            .addComponent(txtHarga))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(txtFillterName3)))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(txtJumlah))))
                 .addGap(29, 29, 29)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -349,130 +384,183 @@ public class InventoryScreen extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtFillterNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFillterNameFocusGained
-    }//GEN-LAST:event_txtFillterNameFocusGained
-
-    private void txtFillterNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFillterNameFocusLost
-    }//GEN-LAST:event_txtFillterNameFocusLost
-
-    private void txtFillterNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFillterNameActionPerformed
+    private void txtNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNameFocusGained
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtFillterNameActionPerformed
+    }//GEN-LAST:event_txtNameFocusGained
 
-    private void txtFillterNamePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_txtFillterNamePropertyChange
+    private void txtNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNameFocusLost
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtFillterNamePropertyChange
+    }//GEN-LAST:event_txtNameFocusLost
 
-    private void txtFillterNameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFillterNameKeyPressed
-    }//GEN-LAST:event_txtFillterNameKeyPressed
-
-    private void txtFillterName1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFillterName1FocusGained
+    private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtFillterName1FocusGained
+    }//GEN-LAST:event_txtNameActionPerformed
 
-    private void txtFillterName1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFillterName1FocusLost
+    private void txtNamePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_txtNamePropertyChange
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtFillterName1FocusLost
+    }//GEN-LAST:event_txtNamePropertyChange
 
-    private void txtFillterName1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFillterName1ActionPerformed
+    private void txtNameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNameKeyPressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtFillterName1ActionPerformed
+    }//GEN-LAST:event_txtNameKeyPressed
 
-    private void txtFillterName1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_txtFillterName1PropertyChange
+    private void txtHargaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtHargaFocusGained
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtFillterName1PropertyChange
+    }//GEN-LAST:event_txtHargaFocusGained
 
-    private void txtFillterName1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFillterName1KeyPressed
+    private void txtHargaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtHargaFocusLost
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtFillterName1KeyPressed
+    }//GEN-LAST:event_txtHargaFocusLost
 
-    private void txtFillterName2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFillterName2FocusGained
+    private void txtHargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtHargaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtFillterName2FocusGained
+    }//GEN-LAST:event_txtHargaActionPerformed
 
-    private void txtFillterName2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFillterName2FocusLost
+    private void txtHargaPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_txtHargaPropertyChange
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtFillterName2FocusLost
+    }//GEN-LAST:event_txtHargaPropertyChange
 
-    private void txtFillterName2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFillterName2ActionPerformed
+    private void txtHargaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtHargaKeyPressed
+        txtHarga.setEditable((evt.getKeyChar() >= '0' && evt.getKeyChar() <= '9') || (evt.getKeyCode() == 8 || evt.getKeyCode() == 127));
+    }//GEN-LAST:event_txtHargaKeyPressed
+
+    private void txtJumlahFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtJumlahFocusGained
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtFillterName2ActionPerformed
+    }//GEN-LAST:event_txtJumlahFocusGained
 
-    private void txtFillterName2PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_txtFillterName2PropertyChange
+    private void txtJumlahFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtJumlahFocusLost
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtFillterName2PropertyChange
+    }//GEN-LAST:event_txtJumlahFocusLost
 
-    private void txtFillterName2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFillterName2KeyPressed
+    private void txtJumlahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtJumlahActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtFillterName2KeyPressed
+    }//GEN-LAST:event_txtJumlahActionPerformed
 
-    private void txtFillterName3FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFillterName3FocusGained
+    private void txtJumlahPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_txtJumlahPropertyChange
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtFillterName3FocusGained
+    }//GEN-LAST:event_txtJumlahPropertyChange
 
-    private void txtFillterName3FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFillterName3FocusLost
+    private void txtJumlahKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtJumlahKeyPressed
+        txtJumlah.setEditable((evt.getKeyChar() >= '0' && evt.getKeyChar() <= '9') || (evt.getKeyCode() == 8 || evt.getKeyCode() == 127));
+    }//GEN-LAST:event_txtJumlahKeyPressed
+
+    private void txtFillterFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFillterFocusGained
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtFillterName3FocusLost
+    }//GEN-LAST:event_txtFillterFocusGained
 
-    private void txtFillterName3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFillterName3ActionPerformed
+    private void txtFillterFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFillterFocusLost
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtFillterName3ActionPerformed
+    }//GEN-LAST:event_txtFillterFocusLost
 
-    private void txtFillterName3PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_txtFillterName3PropertyChange
+    private void txtFillterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFillterActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtFillterName3PropertyChange
+    }//GEN-LAST:event_txtFillterActionPerformed
 
-    private void txtFillterName3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFillterName3KeyPressed
+    private void txtFillterPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_txtFillterPropertyChange
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtFillterName3KeyPressed
+    }//GEN-LAST:event_txtFillterPropertyChange
 
-    private void txtFillterName4FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFillterName4FocusGained
+    private void txtFillterKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFillterKeyPressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtFillterName4FocusGained
+    }//GEN-LAST:event_txtFillterKeyPressed
 
-    private void txtFillterName4FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFillterName4FocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFillterName4FocusLost
+    private void btnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCariActionPerformed
+        _fillterInventory();
+    }//GEN-LAST:event_btnCariActionPerformed
 
-    private void txtFillterName4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFillterName4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFillterName4ActionPerformed
+    private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
+        try {
 
-    private void txtFillterName4PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_txtFillterName4PropertyChange
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFillterName4PropertyChange
+            if (selectedInventoryId != 0) {
 
-    private void txtFillterName4KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFillterName4KeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFillterName4KeyPressed
+                inventoryService.delete(selectedInventoryId);
+                JOptionPane.showMessageDialog(null, "Data Berhasil Dihapus.");
+                dispose();
+                InventoryScreen iscreen = new InventoryScreen(USER_ID);
+                iscreen.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Data Tidak Boleh Ada Yang Kosong !");
+            }
+        } catch (HeadlessException | NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Data Tidak Boleh Ada Yang Kosong !");
+        }
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnHapusActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-    
-    
     private void btnCetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCetakActionPerformed
         // TODO add your handling code here:
         AdministratorScreen obj = new AdministratorScreen();
         HashMap _hash = new HashMap();
-        _hash.put("waktu","2021-05-17");
-        obj.printOut("report_Inventory_ByDateMonthOrYear.jasper",_hash);
-        
-        
+        _hash.put("waktu", "2021-05-17");
+        obj.printOut("report_Inventory_ByDateMonthOrYear.jasper", _hash);
+
     }//GEN-LAST:event_btnCetakActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
+        new SignInScreen().setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        // TODO add your handling code here:
+
+        try {
+
+            if (txtName.getText() != null || txtJumlah.getText() != null || txtHarga.getText() != null) {
+                Inventory inv = new Inventory(0, txtName.getText(), Integer.parseInt(txtJumlah.getText()), Integer.parseInt(txtHarga.getText()));
+
+                inventoryService.insert(inv);
+                JOptionPane.showMessageDialog(null, "Data Berhasil Ditambahkan.");
+                dispose();
+                InventoryScreen iscreen = new InventoryScreen(USER_ID);
+                iscreen.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Data Tidak Boleh Ada Yang Kosong !");
+            }
+        } catch (HeadlessException | NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Data Tidak Boleh Ada Yang Kosong !");
+        }
+
     }//GEN-LAST:event_btnAddActionPerformed
+
+    private void tblViewInventoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblViewInventoryMouseClicked
+        try {
+            int row = tblViewInventory.getSelectedRow();
+            String tableClick = (tblViewInventory.getModel().getValueAt(row, 0).toString());
+
+            selectedInventoryId = Integer.parseInt(tableClick);
+
+            if (tableClick != null) {
+                Inventory singleInv = inventoryService.getById(selectedInventoryId);
+                txtName.setText(singleInv.getName());
+                txtHarga.setText(String.valueOf(singleInv.getPrice()));
+                txtJumlah.setText(String.valueOf(singleInv.getQty()));
+
+            }
+
+        } catch (NumberFormatException e) {
+            System.out.println("[tblViewUsersMouseClicked] ERROR : " + e);
+
+        }
+    }//GEN-LAST:event_tblViewInventoryMouseClicked
+
+    private void btnUbahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUbahActionPerformed
+        try {
+
+            if (selectedInventoryId != 0 && (txtName.getText() != null || txtJumlah.getText() != null || txtHarga.getText() != null)) {
+                Inventory inv = new Inventory(selectedInventoryId, txtName.getText(), Integer.parseInt(txtJumlah.getText()), Integer.parseInt(txtHarga.getText()));
+
+                inventoryService.update(inv);
+                JOptionPane.showMessageDialog(null, "Data Berhasil Diubah.");
+                dispose();
+                InventoryScreen iscreen = new InventoryScreen(USER_ID);
+                iscreen.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Data Tidak Boleh Ada Yang Kosong !");
+            }
+        } catch (HeadlessException | NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Data Tidak Boleh Ada Yang Kosong !");
+        }
+    }//GEN-LAST:event_btnUbahActionPerformed
 
     /**
      * @param args the command line arguments
@@ -504,33 +592,31 @@ public class InventoryScreen extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new InventoryScreen().setVisible(true);
+                new InventoryScreen(USER_ID).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnCari;
     private javax.swing.JMenuItem btnCetak;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton btnHapus;
+    private javax.swing.JButton btnUbah;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JMenuBar jMenu;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable tblViewTickets;
-    private javax.swing.JTextField txtFillterName;
-    private javax.swing.JTextField txtFillterName1;
-    private javax.swing.JTextField txtFillterName2;
-    private javax.swing.JTextField txtFillterName3;
-    private javax.swing.JTextField txtFillterName4;
+    private javax.swing.JPanel jpanel;
+    private javax.swing.JTable tblViewInventory;
+    private javax.swing.JTextField txtFillter;
+    private javax.swing.JTextField txtHarga;
+    private javax.swing.JTextField txtJumlah;
+    private javax.swing.JTextField txtName;
     // End of variables declaration//GEN-END:variables
+
 }

@@ -20,12 +20,12 @@ public class SqlClient {
 
     public static Connection instance() {
         try {
-           // String DB = "jdbc:mysql://192.168.64.2:3306/cgc";
-           String DB = "jdbc:mysql://localhost/cgc";
+            String DB = "jdbc:mysql://192.168.64.2:3306/cgc";
+//           String DB = "jdbc:mysql://localhost/cgc";
             String user = "root";
-            String pass = "";
+            String pass = "kuliahkerjapraktek";
             DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
-            
+
             conn = (Connection) DriverManager.getConnection(DB, user, pass);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Tidak ada koneksi", "Error",
