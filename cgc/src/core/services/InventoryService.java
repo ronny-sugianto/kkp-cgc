@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -122,6 +123,42 @@ public class InventoryService {
 
         } catch (SQLException e) {
             System.out.println("[update] ERROR: " + e);
+        }
+
+    }
+
+    public void updateQtyById(int inventoryId, int minusQty) {
+        try {
+            Statement query = CONNECTION.createStatement();
+            result = query.executeQuery("SELECT * FROM inventory WHERE id =" + inventoryId);
+            Inventory inv = null;
+            if (result.next()) {
+
+                inv = new Inventory(
+                        result.getInt("id"),
+                        result.getString("name"),
+                        result.getInt("qty"),
+                        result.getInt("price")
+                );
+            }
+            if (inv != null && inv.getQty() > 0) {
+
+                int lastQty = result.getInt("qty") - minusQty;
+
+                if (lastQty > 0) {
+
+                    query.executeUpdate("UPDATE inventory SET qty = "
+                            + lastQty + ", timestamp = now()"
+                            + " where id =" + inventoryId
+                    );
+                } else {
+                    JOptionPane.showMessageDialog(null, "Stok Tidak Cukup");
+                }
+
+            }
+
+        } catch (SQLException e) {
+            System.out.println("[updateQtyById] ERROR: " + e);
         }
 
     }

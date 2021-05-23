@@ -5,17 +5,52 @@
  */
 package screens.sales;
 
+import core.models.Inventory;
+import core.services.InventoryService;
+import core.services.SalesService;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import screens.SignInScreen;
+
 /**
  *
  * @author ronny
  */
 public class SalesScreen extends javax.swing.JFrame {
 
+    private DefaultTableModel modelSales;
+    private static int USER_ID;
+    int selectedId = 999999999;
+    int totBeli = 0;
+    InventoryService inventoryService = new InventoryService();
+    ArrayList<Integer> kodeBarang = new ArrayList<>();
+
     /**
      * Creates new form SalesScreen
      */
-    public SalesScreen() {
+    public SalesScreen(int userId) {
         initComponents();
+        setLocationRelativeTo(null);
+        USER_ID = userId;
+        modelSales = new DefaultTableModel();
+        tblViewSales.setModel(modelSales);
+        modelSales.addColumn("Nama Barang");
+        modelSales.addColumn("Harga Barang");
+        modelSales.addColumn("Jumlah Beli");
+        modelSales.addColumn("Total Beli");
+        tblViewSales.getColumnModel().getColumn(2).setPreferredWidth(5);
+        if (selectedId != 999999999) {
+            btnHapus.setEnabled(true);
+        } else {
+            btnHapus.setEnabled(false);
+        }
+        if (modelSales.getRowCount() > 0) {
+            btnTransaksikan.setEnabled(true);
+        } else {
+            btnTransaksikan.setEnabled(false);
+        }
+
     }
 
     /**
@@ -38,14 +73,13 @@ public class SalesScreen extends javax.swing.JFrame {
         lblTotBel = new javax.swing.JLabel();
         lblAmontTotBel = new javax.swing.JLabel();
         jPanel_left_second = new javax.swing.JPanel();
-        btnUbah = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
-        btnTransaksikan = new javax.swing.JButton();
         btnHapus = new javax.swing.JButton();
+        btnTransaksikan = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
+        menuReport = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        menuSignOut = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -60,6 +94,11 @@ public class SalesScreen extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblViewSales.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblViewSalesMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblViewSales);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -115,39 +154,52 @@ public class SalesScreen extends javax.swing.JFrame {
         lblJumlah.setText("Jumlah");
 
         btnTambah.setText("Tambah");
+        btnTambah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTambahActionPerformed(evt);
+            }
+        });
 
         lblTotBel.setText("Total Pembelian");
 
         lblAmontTotBel.setFont(new java.awt.Font("Lucida Grande", 2, 18)); // NOI18N
-        lblAmontTotBel.setText("Rp. 2.500.000,-");
+        lblAmontTotBel.setText("Rp. 0");
 
         jPanel_left_second.setBackground(new java.awt.Color(255, 255, 255));
 
-        btnUbah.setText("Ubah");
+        btnHapus.setText("Hapus");
+        btnHapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHapusActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel_left_secondLayout = new javax.swing.GroupLayout(jPanel_left_second);
         jPanel_left_second.setLayout(jPanel_left_secondLayout);
         jPanel_left_secondLayout.setHorizontalGroup(
             jPanel_left_secondLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_left_secondLayout.createSequentialGroup()
+            .addGroup(jPanel_left_secondLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel_left_secondLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnUbah, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE))
+                .addGroup(jPanel_left_secondLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
+                    .addComponent(btnHapus, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel_left_secondLayout.setVerticalGroup(
             jPanel_left_secondLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel_left_secondLayout.createSequentialGroup()
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnUbah, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
         btnTransaksikan.setText("Transaksikan");
-
-        btnHapus.setText("Hapus");
+        btnTransaksikan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTransaksikanActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -171,9 +223,8 @@ public class SalesScreen extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblTotBel)
-                                    .addComponent(lblAmontTotBel))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(btnHapus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                    .addComponent(lblAmontTotBel, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -190,11 +241,9 @@ public class SalesScreen extends javax.swing.JFrame {
                     .addComponent(btnTambah, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel_left_second, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnTransaksikan, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblTotBel)
@@ -203,20 +252,20 @@ public class SalesScreen extends javax.swing.JFrame {
                 .addGap(5, 5, 5))
         );
 
-        jMenu1.setText("Akun");
+        menuReport.setText("Akun");
 
-        jMenuItem1.setText("Ganti Password");
-        jMenu1.add(jMenuItem1);
+        jMenuItem1.setText("Cetak Laporan Hari Ini");
+        menuReport.add(jMenuItem1);
 
-        jMenuItem2.setText("Keluar");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        menuSignOut.setText("Keluar");
+        menuSignOut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                menuSignOutActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem2);
+        menuReport.add(menuSignOut);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(menuReport);
 
         setJMenuBar(jMenuBar1);
 
@@ -231,7 +280,7 @@ public class SalesScreen extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -255,7 +304,7 @@ public class SalesScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_txtKodeBarangPropertyChange
 
     private void txtKodeBarangKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtKodeBarangKeyPressed
-        // TODO add your handling code here:
+        txtKodeBarang.setEditable((evt.getKeyChar() >= '0' && evt.getKeyChar() <= '9') || (evt.getKeyCode() == 8 || evt.getKeyCode() == 127));
     }//GEN-LAST:event_txtKodeBarangKeyPressed
 
     private void txtJumlahFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtJumlahFocusGained
@@ -275,12 +324,101 @@ public class SalesScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_txtJumlahPropertyChange
 
     private void txtJumlahKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtJumlahKeyPressed
-        // TODO add your handling code here:
+        txtJumlah.setEditable((evt.getKeyChar() >= '0' && evt.getKeyChar() <= '9') || (evt.getKeyCode() == 8 || evt.getKeyCode() == 127));        // TODO add your handling code here:
     }//GEN-LAST:event_txtJumlahKeyPressed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    private void menuSignOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSignOutActionPerformed
+        this.dispose();
+        new SignInScreen().setVisible(true);
+    }//GEN-LAST:event_menuSignOutActionPerformed
+
+    private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
+
+        if (txtKodeBarang.getText().trim().length() != 0 && txtJumlah.getText().trim().length() != 0) {
+            Inventory inv = inventoryService.getById(Integer.parseInt(txtKodeBarang.getText()));
+
+            if (inv != null && inv.getName() != null) {
+                System.out.println(inv.getId());
+                Object[] obj = new Object[4];
+                obj[0] = inv.getName();
+                obj[1] = inv.getPrice();
+                obj[2] = Integer.parseInt(txtJumlah.getText());
+                obj[3] = (inv.getPrice() * Integer.parseInt(txtJumlah.getText()));
+                kodeBarang.add(inv.getId());
+                modelSales.addRow(obj);
+
+                totBeli += (inv.getPrice() * Integer.parseInt(txtJumlah.getText()));
+                lblAmontTotBel.setText("Rp. " + totBeli);
+
+                txtKodeBarang.setText("");
+                txtJumlah.setText("");
+
+                if (modelSales.getRowCount() > 0) {
+                    btnTransaksikan.setEnabled(true);
+                } else {
+                    btnTransaksikan.setEnabled(false);
+                }
+
+            } else {
+
+                JOptionPane.showMessageDialog(null, "Kode Barang Tidak Ditemukan !");
+            }
+        }
+
+    }//GEN-LAST:event_btnTambahActionPerformed
+
+    private void tblViewSalesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblViewSalesMouseClicked
+        int row = tblViewSales.getSelectedRow();
+
+        selectedId = row;
+        if (selectedId != 999999999) {
+            btnHapus.setEnabled(true);
+        } else {
+            btnHapus.setEnabled(false);
+        }
+    }//GEN-LAST:event_tblViewSalesMouseClicked
+
+    private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
+        String value = modelSales.getValueAt(selectedId, 3).toString();
+        totBeli -= Integer.parseInt(value);
+        lblAmontTotBel.setText("Rp. " + totBeli);
+        modelSales.removeRow(selectedId);
+        selectedId = 999999999;
+        if (selectedId != 999999999) {
+            btnHapus.setEnabled(true);
+        } else {
+            btnHapus.setEnabled(false);
+        }
+        if (modelSales.getRowCount() > 0) {
+            btnTransaksikan.setEnabled(true);
+        } else {
+            btnTransaksikan.setEnabled(false);
+        }
+
+    }//GEN-LAST:event_btnHapusActionPerformed
+
+    private void btnTransaksikanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTransaksikanActionPerformed
+        SalesService salesService = new SalesService();
+
+        int lastId = salesService.insert(totBeli);
+
+        if (lastId != 0) {
+
+            for (int i = 0; i < modelSales.getRowCount(); i++) {
+                String valueQty = modelSales.getValueAt(i, 2).toString();
+                String valuePrice = modelSales.getValueAt(i, 3).toString();
+
+                inventoryService.updateQtyById(kodeBarang.get(i), Integer.parseInt(valueQty));
+                salesService.insertItem(lastId, kodeBarang.get(i), USER_ID, Integer.parseInt(valueQty), Integer.parseInt(valuePrice));
+                modelSales.removeRow(i);
+
+            }
+            totBeli = 0;
+            lblAmontTotBel.setText("Rp. " + totBeli);
+            JOptionPane.showMessageDialog(null, "Berhasil Ditransaksikan");
+        }
+
+    }//GEN-LAST:event_btnTransaksikanActionPerformed
 
     /**
      * @param args the command line arguments
@@ -311,8 +449,9 @@ public class SalesScreen extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
-                new SalesScreen().setVisible(true);
+                new SalesScreen(USER_ID).setVisible(true);
             }
         });
     }
@@ -321,11 +460,8 @@ public class SalesScreen extends javax.swing.JFrame {
     private javax.swing.JButton btnHapus;
     private javax.swing.JButton btnTambah;
     private javax.swing.JButton btnTransaksikan;
-    private javax.swing.JButton btnUbah;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel_left_second;
     private javax.swing.JScrollPane jScrollPane1;
@@ -334,6 +470,8 @@ public class SalesScreen extends javax.swing.JFrame {
     private javax.swing.JLabel lblAmontTotBel;
     private javax.swing.JLabel lblJumlah;
     private javax.swing.JLabel lblTotBel;
+    private javax.swing.JMenu menuReport;
+    private javax.swing.JMenuItem menuSignOut;
     private javax.swing.JTable tblViewSales;
     private javax.swing.JTextField txtJumlah;
     private javax.swing.JTextField txtKodeBarang;
