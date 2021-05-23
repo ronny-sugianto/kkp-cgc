@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 14, 2021 at 08:45 AM
+-- Generation Time: May 23, 2021 at 07:27 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -36,6 +36,14 @@ CREATE TABLE `inventory` (
   `price` int(10) NOT NULL,
   `timestamp` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `inventory`
+--
+
+INSERT INTO `inventory` (`id`, `name`, `qty`, `price`, `timestamp`) VALUES
+(1, 'Cola Rasa Original 250Ml', 90, 8000, '2021-05-23'),
+(3, 'Jengkol', 1, 500, '2021-05-22');
 
 -- --------------------------------------------------------
 
@@ -93,6 +101,13 @@ CREATE TABLE `transaction` (
   `total` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `transaction`
+--
+
+INSERT INTO `transaction` (`id`, `timestamp`, `total`) VALUES
+(4, '2021-05-23 05:25:44', 48000);
+
 -- --------------------------------------------------------
 
 --
@@ -106,6 +121,17 @@ CREATE TABLE `transaction_detail` (
   `qty` int(10) NOT NULL,
   `price` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `transaction_detail`
+--
+
+INSERT INTO `transaction_detail` (`transaction_id`, `inventory_id`, `user_id`, `qty`, `price`) VALUES
+(2, 1, 0, 2, 16000),
+(2, 3, 0, 2, 1000),
+(3, 1, 0, 2, 16000),
+(3, 3, 0, 2, 1000),
+(4, 1, 0, 6, 48000);
 
 -- --------------------------------------------------------
 
@@ -175,7 +201,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `role`
@@ -193,7 +219,7 @@ ALTER TABLE `tickets`
 -- AUTO_INCREMENT for table `transaction`
 --
 ALTER TABLE `transaction`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `users`
