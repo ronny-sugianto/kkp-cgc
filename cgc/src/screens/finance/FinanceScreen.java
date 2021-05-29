@@ -5,6 +5,12 @@
  */
 package screens.finance;
 
+import core.models.Transaction;
+import core.services.SalesService;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+import screens.SignInScreen;
+
 /**
  *
  * @author ronny
@@ -14,8 +20,35 @@ public class FinanceScreen extends javax.swing.JFrame {
     /**
      * Creates new form FinanceScreen
      */
-    public FinanceScreen() {
+    private static int USER_ID;
+    private DefaultTableModel modelFinance;
+    SalesService salesService = new SalesService();
+
+    public FinanceScreen(int userId) {
         initComponents();
+        setLocationRelativeTo(null);
+        modelFinance = new DefaultTableModel();
+        tblViewFinance.setModel(modelFinance);
+        modelFinance.addColumn("Id");
+        modelFinance.addColumn("Tgl");
+        modelFinance.addColumn("Jumlah Transaksi");
+        modelFinance.addColumn("Penanggung Jawab");
+        tblViewFinance.getColumnModel().getColumn(0).setPreferredWidth(5);
+
+        ArrayList<Transaction> data;
+        data = salesService.getAll();
+        if (data != null) {
+
+            for (int i = 0; i < data.toArray().length; i++) {
+                Object[] obj = new Object[4];
+                obj[0] = data.get(i).getId();
+                obj[1] = data.get(i).getTimestamp();
+                obj[2] = data.get(i).getTotalAmount();
+                obj[3] = data.get(i).getFullName();
+                modelFinance.addRow(obj);
+            }
+
+        }
     }
 
     /**
@@ -27,21 +60,80 @@ public class FinanceScreen extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tblViewFinance = new javax.swing.JTable();
+        btnLogout = new javax.swing.JButton();
+        btnCetak = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        tblViewFinance.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tblViewFinance.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblViewFinanceMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(tblViewFinance);
+
+        btnLogout.setText("Keluar");
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogoutActionPerformed(evt);
+            }
+        });
+
+        btnCetak.setText("Cetak");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 753, Short.MAX_VALUE)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 629, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(16, 16, 16)
+                    .addComponent(btnCetak, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(245, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(232, Short.MAX_VALUE)
+                    .addComponent(btnCetak, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap()))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tblViewFinanceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblViewFinanceMouseClicked
+
+    }//GEN-LAST:event_tblViewFinanceMouseClicked
+
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+        this.dispose();
+        new SignInScreen().setVisible(true);
+    }//GEN-LAST:event_btnLogoutActionPerformed
 
     /**
      * @param args the command line arguments
@@ -71,13 +163,15 @@ public class FinanceScreen extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FinanceScreen().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new FinanceScreen(USER_ID).setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCetak;
+    private javax.swing.JButton btnLogout;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTable tblViewFinance;
     // End of variables declaration//GEN-END:variables
 }
