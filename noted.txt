@@ -1,0 +1,44 @@
+report
+1. report_Inventory_ByDateMonthOrYear ( Sudah )
+2. report_Transaction_By_Id 
+                  ?
+   SELECT users.full_name as "account_name",inventory.name as "product_name",transaction_detail.qty,transaction_detail.price as "amount_payment", 
+   transaction.timestamp FROM transaction_detail INNER JOIN transaction on transaction.id = $P{transaction_id} INNER JOIN users on users.id = $P{user_id} INNER JOIN 
+   inventory on inventory.id = $P{inventory_id} where transaction_id = $P{id};
+
+inputan di frame ke jasper: 
+ 1.transaction_id
+ 2. user_id
+ 3. inventory_id
+ 4. id
+
+3. report_Transaction_By_TimeStamp          ?
+
+
+SELECT * FROM transaction WHERE transaction.timestamp = $P{times}
+
+inputan di frame ke jasper
+ 1. times
+
+      
+
+4. report_All_Transaction                ?
+
+SELECT users.full_name as "account_name",inventory.name as "product_name",transaction_detail.qty,transaction_detail.price as "amount_payment", 
+transaction.timestamp FROM transaction_detail INNER JOIN transaction on transaction.id = $P{transaction_id} INNER JOIN users on users.id = $P{user_id} INNER JOIN 
+inventory on inventory.id = $P{inventory_id}
+
+inputan di frame ke jasper
+  1.transaction_id
+  2. user_id
+  3. inventory_id
+
+
+5. report_Inventory_AllStock           ?
+
+SELECT * FROM inventory
+
+
+
+
+ 

@@ -17,14 +17,26 @@ import javax.swing.JOptionPane;
 public class SqlClient {
 
     private static Connection conn;
-
+    
+ public static void validate(){
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            System.out.println("koneksi berhasil");
+        }catch(Exception e){
+            System.out.println("Koneksi gagal");
+        }
+    }
+    
     public static Connection instance() {
+        
+        validate();
+        
         try {
-            String DB = "jdbc:mysql://192.168.64.2:3306/cgc";
-//           String DB = "jdbc:mysql://localhost/cgc";
+       //     String DB = "jdbc:mysql://192.168.64.2:3306/cgc";
+            String DB = "jdbc:mysql://localhost/cgc";
             String user = "root";
-            String pass = "kuliahkerjapraktek";
-            DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
+            String pass = "";//"kuliahkerjapraktek";
+           // DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
 
             conn = (Connection) DriverManager.getConnection(DB, user, pass);
         } catch (SQLException e) {
@@ -35,4 +47,9 @@ public class SqlClient {
         }
         return conn;
     }
+    
+    
+    
+    
+   
 }

@@ -311,7 +311,9 @@ public class InventoryScreen extends javax.swing.JFrame {
 
         jMenu1.setText("Menu");
 
-        btnCetak.setText("Cetak Laporan");
+        btnCetak.setText("Cetak Laporan Berdasarkan Date");
+        btnCetak.setAlignmentX(0.0F);
+        btnCetak.setAlignmentY(0.0F);
         btnCetak.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCetakActionPerformed(evt);
@@ -491,7 +493,9 @@ public class InventoryScreen extends javax.swing.JFrame {
         // TODO add your handling code here:
         AdministratorScreen obj = new AdministratorScreen();
         HashMap _hash = new HashMap();
-        _hash.put("waktu", "2021-05-17");
+        String date ;
+        date = JOptionPane.showInputDialog(null,"Input Date(1998-12-30) : ","Cetak Informasi Berdasarkan Date",JOptionPane.QUESTION_MESSAGE);
+        _hash.put("waktu", date);
         obj.printOut("report_Inventory_ByDateMonthOrYear.jasper", _hash);
 
     }//GEN-LAST:event_btnCetakActionPerformed
