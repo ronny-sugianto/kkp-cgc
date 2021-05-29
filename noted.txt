@@ -104,3 +104,25 @@ tambahan
   SELECT users.full_name as "Sales Name",inventory.name as "Product Name", transaction_detail.qty as "Qty", transaction_detail.price as "Total Price" FROM 
 transaction_detail INNER JOIN transaction on transaction.id = transaction_detail.transaction_id INNER JOIN inventory ON inventory.id = transaction_detail.inventory_id INNER JOIN 
 users on users.id = transaction_detail.user_id WHERE users.id = transaction_detail.user_id AND transaction.timestamp = ambil hari ini"
+
+
+
+
+SELECT users.full_name as "Sales Name",inventory.name as "Product Name", transaction_detail.qty as "Qty", transaction_detail.price as "Total Price" FROM
+ 
+transaction_detail INNER JOIN transaction on transaction.id = transaction_detail.transaction_id INNER JOIN inventory ON inventory.id = transaction_detail.inventory_id INNER JOIN 
+
+users on users.id = transaction_detail.user_id WHERE users.id = USER_ID  AND transaction.timestamp = AmBiLHaRiInI";
+
+
+yg di tampilkan : 
+ 
+ field 						Entitas	
+	
+ full_name -- Sales Name			users
+ name      -- Product Name			inventory
+ qty       -- Qty				transaction_detail
+ price     -- Total Price			transaction_detail
+
+						
+

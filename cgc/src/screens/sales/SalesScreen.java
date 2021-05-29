@@ -8,10 +8,14 @@ package screens.sales;
 import core.models.Inventory;
 import core.services.InventoryService;
 import core.services.SalesService;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import screens.SignInScreen;
+import screens.administrator.AdministratorScreen;
 
 /**
  *
@@ -427,7 +431,15 @@ public class SalesScreen extends javax.swing.JFrame {
 
     private void menuReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuReportActionPerformed
 //        SELECT users.full_name as "Sales Name",inventory.name as "Product Name", transaction_detail.qty as "Qty", transaction_detail.price as "Total Price" FROM transaction_detail INNER JOIN transaction on transaction.id = transaction_detail.transaction_id INNER JOIN inventory ON inventory.id = transaction_detail.inventory_id INNER JOIN users on users.id = transaction_detail.user_id WHERE users.id = transaction_detail.user_id AND transaction.timestamp = ambil hari ini"
-
+        AdministratorScreen obj = new AdministratorScreen();
+        HashMap _hash = new HashMap();
+        
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd"); 
+        Date date = new Date();  
+        
+        _hash.put("today",formatter.format(date));
+        _hash.put("USER_ID", USER_ID);
+        obj.printOut("ReportSalesScreen.jasper", _hash);
 
     }//GEN-LAST:event_menuReportActionPerformed
 
