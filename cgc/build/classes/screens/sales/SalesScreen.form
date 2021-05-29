@@ -4,15 +4,18 @@
   <NonVisualComponents>
     <Menu class="javax.swing.JMenuBar" name="jMenuBar1">
       <SubComponents>
-        <Menu class="javax.swing.JMenu" name="menuReport">
+        <Menu class="javax.swing.JMenu" name="menus">
           <Properties>
             <Property name="text" type="java.lang.String" value="Akun"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
+            <MenuItem class="javax.swing.JMenuItem" name="menuReport">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cetak Laporan Hari Ini"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuReportActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuSignOut">
               <Properties>

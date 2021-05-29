@@ -77,8 +77,8 @@ public class SalesScreen extends javax.swing.JFrame {
         btnHapus = new javax.swing.JButton();
         btnTransaksikan = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
-        menuReport = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        menus = new javax.swing.JMenu();
+        menuReport = new javax.swing.JMenuItem();
         menuSignOut = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -252,10 +252,15 @@ public class SalesScreen extends javax.swing.JFrame {
                 .addGap(5, 5, 5))
         );
 
-        menuReport.setText("Akun");
+        menus.setText("Akun");
 
-        jMenuItem1.setText("Cetak Laporan Hari Ini");
-        menuReport.add(jMenuItem1);
+        menuReport.setText("Cetak Laporan Hari Ini");
+        menuReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuReportActionPerformed(evt);
+            }
+        });
+        menus.add(menuReport);
 
         menuSignOut.setText("Keluar");
         menuSignOut.addActionListener(new java.awt.event.ActionListener() {
@@ -263,9 +268,9 @@ public class SalesScreen extends javax.swing.JFrame {
                 menuSignOutActionPerformed(evt);
             }
         });
-        menuReport.add(menuSignOut);
+        menus.add(menuSignOut);
 
-        jMenuBar1.add(menuReport);
+        jMenuBar1.add(menus);
 
         setJMenuBar(jMenuBar1);
 
@@ -420,6 +425,12 @@ public class SalesScreen extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnTransaksikanActionPerformed
 
+    private void menuReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuReportActionPerformed
+//        SELECT users.full_name as "Sales Name",inventory.name as "Product Name", transaction_detail.qty as "Qty", transaction_detail.price as "Total Price" FROM transaction_detail INNER JOIN transaction on transaction.id = transaction_detail.transaction_id INNER JOIN inventory ON inventory.id = transaction_detail.inventory_id INNER JOIN users on users.id = transaction_detail.user_id WHERE users.id = transaction_detail.user_id AND transaction.timestamp = ambil hari ini"
+
+
+    }//GEN-LAST:event_menuReportActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -461,7 +472,6 @@ public class SalesScreen extends javax.swing.JFrame {
     private javax.swing.JButton btnTambah;
     private javax.swing.JButton btnTransaksikan;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel_left_second;
     private javax.swing.JScrollPane jScrollPane1;
@@ -470,8 +480,9 @@ public class SalesScreen extends javax.swing.JFrame {
     private javax.swing.JLabel lblAmontTotBel;
     private javax.swing.JLabel lblJumlah;
     private javax.swing.JLabel lblTotBel;
-    private javax.swing.JMenu menuReport;
+    private javax.swing.JMenuItem menuReport;
     private javax.swing.JMenuItem menuSignOut;
+    private javax.swing.JMenu menus;
     private javax.swing.JTable tblViewSales;
     private javax.swing.JTextField txtJumlah;
     private javax.swing.JTextField txtKodeBarang;

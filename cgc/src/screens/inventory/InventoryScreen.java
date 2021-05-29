@@ -114,7 +114,7 @@ public class InventoryScreen extends javax.swing.JFrame {
         jMenu = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         btnCetak = new javax.swing.JMenuItem();
-        btnCetakAllInventory = new javax.swing.JMenuItem();
+        btnCetakAll = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -322,13 +322,15 @@ public class InventoryScreen extends javax.swing.JFrame {
         });
         jMenu1.add(btnCetak);
 
-        btnCetakAllInventory.setText("Cetak Laporan semua Inventory");
-        btnCetakAllInventory.addActionListener(new java.awt.event.ActionListener() {
+        btnCetakAll.setText("Cetak Semua data Inventory");
+        btnCetakAll.setAlignmentX(0.0F);
+        btnCetakAll.setAlignmentY(0.0F);
+        btnCetakAll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCetakAllInventoryActionPerformed(evt);
+                btnCetakAllActionPerformed(evt);
             }
         });
-        jMenu1.add(btnCetakAllInventory);
+        jMenu1.add(btnCetakAll);
 
         jMenuItem3.setText("Keluar");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
@@ -575,11 +577,15 @@ public class InventoryScreen extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnUbahActionPerformed
 
-    private void btnCetakAllInventoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCetakAllInventoryActionPerformed
+    private void btnCetakAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCetakAllActionPerformed
         // TODO add your handling code here:
-         AdministratorScreen obj = new AdministratorScreen();
-         obj.printOut("report_Inventory_AllStock.jasper", null);
-    }//GEN-LAST:event_btnCetakAllInventoryActionPerformed
+        JOptionPane.showMessageDialog(null,"Please Wait...");
+            AdministratorScreen obj = new AdministratorScreen();
+        HashMap _hash = new HashMap();
+        obj.printOut("report_Inventory_AllStock.jasper", null);
+        
+        
+    }//GEN-LAST:event_btnCetakAllActionPerformed
 
     /**
      * @param args the command line arguments
@@ -620,7 +626,7 @@ public class InventoryScreen extends javax.swing.JFrame {
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnCari;
     private javax.swing.JMenuItem btnCetak;
-    private javax.swing.JMenuItem btnCetakAllInventory;
+    private javax.swing.JMenuItem btnCetakAll;
     private javax.swing.JButton btnHapus;
     private javax.swing.JButton btnUbah;
     private javax.swing.JLabel jLabel2;

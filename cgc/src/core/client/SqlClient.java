@@ -17,27 +17,26 @@ import javax.swing.JOptionPane;
 public class SqlClient {
 
     private static Connection conn;
-    
- public static void validate(){
-        try{
+
+    public static void validate() {
+        try {
             Class.forName("com.mysql.jdbc.Driver");
             System.out.println("koneksi berhasil");
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println("Koneksi gagal");
         }
     }
-    
+
     public static Connection instance() {
-        
+
         validate();
-        //klo mau ubah ubah dimana ? di project yg di clone aja.. nnti klo install ulang
-   //     gk usah di zip atau di copy, simpen di git aja,,ok.coba 
+
         try {
-       //     String DB = "jdbc:mysql://192.168.64.2:3306/cgc";
+        //    String DB = "jdbc:mysql://192.168.64.2:3306/cgc";
             String DB = "jdbc:mysql://localhost/cgc";
             String user = "root";
-            String pass = "";//"kuliahkerjapraktek";
-           // DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
+            String pass = "";//"kuliahkerjapraktek";//"kuliahkerjapraktek";
+            // DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
 
             conn = (Connection) DriverManager.getConnection(DB, user, pass);
         } catch (SQLException e) {
@@ -48,9 +47,5 @@ public class SqlClient {
         }
         return conn;
     }
-    
-    
-    
-    
-   
+
 }

@@ -6,10 +6,12 @@
 package core.services;
 
 import core.client.SqlClient;
+import core.models.Transaction;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  *
@@ -46,5 +48,31 @@ public class SalesService {
         } catch (SQLException e) {
             System.out.println("[insertItem] ERROR: " + e);
         }
+    }
+
+    public ArrayList<Transaction> getAll() {
+        try {
+            Statement query = CONNECTION.createStatement();
+            result = query.executeQuery("SELECT t.id,t.timestamp,t.total,users.full_name FROM transaction_detail INNER JOIN  transaction as t ON t.id = transaction_detail.transaction_id INNER JOIN users ON users.id = transaction_detail.user_id ORDER BY t.id DESC");
+            ArrayList arr = new ArrayList();
+
+            while (result.next()) {
+
+                Transaction obj = new Transaction(
+                        result.getInt("id"),
+                        result.getDate("timestamp"),
+                        result.getInt("total"),
+                        result.getString("full_name")
+                );
+
+                arr.add(obj);
+            }
+            if (!arr.isEmpty()) {
+                return arr;
+            }
+        } catch (SQLException e) {
+            System.out.println("[getAlTransaction] ERROR: " + e);
+        }
+        return null;
     }
 }

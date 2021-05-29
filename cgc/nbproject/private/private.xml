@@ -3,14 +3,20 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/kkp-cgc-main/kkp-cgc-main/cgc/src/core/services/SalesService.java</file>
-            <file>file:/D:/kkp-cgc-main/kkp-cgc-main/cgc/src/core/services/InventoryService.java</file>
-            <file>file:/D:/kkp-cgc-main/kkp-cgc-main/cgc/src/core/client/SqlClient.java</file>
-            <file>file:/D:/kkp-cgc-main/kkp-cgc-main/cgc/src/screens/sales/SalesScreen.java</file>
-            <file>file:/D:/kkp-cgc-main/kkp-cgc-main/cgc/src/e_report/report_Transaction_By_Id.jrxml</file>
-            <file>file:/D:/kkp-cgc-main/kkp-cgc-main/cgc/src/screens/finance/FinanceScreen.java</file>
-            <file>file:/D:/kkp-cgc-main/kkp-cgc-main/cgc/src/screens/inventory/InventoryScreen.java</file>
-            <file>file:/D:/kkp-cgc-main/kkp-cgc-main/cgc/src/screens/administrator/AdministratorScreen.java</file>
+            <file>file:/C:/Users/WisnuWahyudi/kkp-cgc/cgc/src/screens/inventory/InventoryScreen.java</file>
+            <file>file:/C:/Users/WisnuWahyudi/kkp-cgc/cgc/src/screens/SignInScreen.java</file>
+            <file>file:/C:/Users/WisnuWahyudi/kkp-cgc/cgc/src/e_report/report_Inventory_ByDateMonthOrYear.jrxml</file>
+            <file>file:/C:/Users/WisnuWahyudi/kkp-cgc/cgc/src/screens/finance/FinanceScreen.java</file>
+            <file>file:/C:/Users/WisnuWahyudi/kkp-cgc/cgc/src/screens/sales/SalesScreen.java</file>
+            <file>file:/C:/Users/WisnuWahyudi/kkp-cgc/cgc/src/screens/administrator/AdministratorScreen.java</file>
+            <file>file:/C:/Users/WisnuWahyudi/kkp-cgc/cgc/src/screens/UpdatePasswordScreen.java</file>
+            <file>file:/C:/Users/WisnuWahyudi/kkp-cgc/cgc/src/core/services/SalesService.java</file>
+            <file>file:/C:/Users/WisnuWahyudi/kkp-cgc/cgc/src/screens/administrator/UsersIUScreen.java</file>
+            <file>file:/C:/Users/WisnuWahyudi/kkp-cgc/cgc/src/screens/LostPasswordScreen.java</file>
+            <file>file:/C:/Users/WisnuWahyudi/kkp-cgc/cgc/src/core/models/Transaction.java</file>
+            <file>file:/C:/Users/WisnuWahyudi/kkp-cgc/cgc/src/e_report/ReportAllTransaction.jrxml</file>
+            <file>file:/C:/Users/WisnuWahyudi/kkp-cgc/cgc/src/e_report/report_Inventory_AllStock.jrxml</file>
+            <file>file:/C:/Users/WisnuWahyudi/kkp-cgc/cgc/src/core/client/SqlClient.java</file>
         </group>
     </open-files>
 </project-private>

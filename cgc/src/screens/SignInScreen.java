@@ -10,6 +10,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import screens.administrator.AdministratorScreen;
+import screens.finance.FinanceScreen;
+import screens.inventory.InventoryScreen;
+import screens.sales.SalesScreen;
 
 /**
  *
@@ -225,10 +228,16 @@ public class SignInScreen extends javax.swing.JFrame {
                                     _administratorScreen.setVisible(true);
                                     break;
                                 case "Inventory":
+                                    InventoryScreen _inventoryScreen = new InventoryScreen(result.getInt("id"));
+                                    _inventoryScreen.setVisible(true);
                                     break;
                                 case "Finance":
+                                    FinanceScreen _financeScreen = new FinanceScreen(result.getInt("id"));
+                                    _financeScreen.setVisible(true);
                                     break;
                                 case "Sales":
+                                    SalesScreen _salesScreen = new SalesScreen(result.getInt("id"));
+                                    _salesScreen.setVisible(true);
                                     break;
                                 default:
                                     JOptionPane.showMessageDialog(this, "Oops! Terjadi Kesalahan, Mohon Segera Hubungi Administrator");
