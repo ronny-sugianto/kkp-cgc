@@ -431,6 +431,7 @@ public class SalesScreen extends javax.swing.JFrame {
 
     private void menuReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuReportActionPerformed
 //        SELECT users.full_name as "Sales Name",inventory.name as "Product Name", transaction_detail.qty as "Qty", transaction_detail.price as "Total Price" FROM transaction_detail INNER JOIN transaction on transaction.id = transaction_detail.transaction_id INNER JOIN inventory ON inventory.id = transaction_detail.inventory_id INNER JOIN users on users.id = transaction_detail.user_id WHERE users.id = transaction_detail.user_id AND transaction.timestamp = ambil hari ini"
+<<<<<<< HEAD
         AdministratorScreen obj = new AdministratorScreen();
         HashMap _hash = new HashMap();
         
@@ -440,6 +441,8 @@ public class SalesScreen extends javax.swing.JFrame {
         _hash.put("today",formatter.format(date));
         _hash.put("USER_ID", USER_ID);
         obj.printOut("ReportSalesScreen.jasper", _hash);
+=======
+>>>>>>> bfe0b3524a509f1e1b75fa4338e5c0ac6ed4a839
 
     }//GEN-LAST:event_menuReportActionPerformed
 

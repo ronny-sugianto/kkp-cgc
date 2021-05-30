@@ -32,10 +32,17 @@ public class SqlClient {
         validate();
 
         try {
+<<<<<<< HEAD
         //    String DB = "jdbc:mysql://192.168.64.2:3306/cgc";
             String DB = "jdbc:mysql://localhost/cgc";
             String user = "root";
             String pass = "";//"kuliahkerjapraktek";//"kuliahkerjapraktek";
+=======
+            String DB = "jdbc:mysql://192.168.64.2:3306/cgc";
+//            String DB = "jdbc:mysql://localhost/cgc";
+            String user = "root";
+            String pass = "kuliahkerjapraktek";//"kuliahkerjapraktek";
+>>>>>>> bfe0b3524a509f1e1b75fa4338e5c0ac6ed4a839
             // DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
 
             conn = (Connection) DriverManager.getConnection(DB, user, pass);

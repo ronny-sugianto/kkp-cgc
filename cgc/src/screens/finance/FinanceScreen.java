@@ -8,11 +8,16 @@ package screens.finance;
 import core.models.Transaction;
 import core.services.SalesService;
 import java.util.ArrayList;
+<<<<<<< HEAD
 import java.util.HashMap;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import screens.SignInScreen;
 import screens.administrator.AdministratorScreen;
+=======
+import javax.swing.table.DefaultTableModel;
+import screens.SignInScreen;
+>>>>>>> bfe0b3524a509f1e1b75fa4338e5c0ac6ed4a839
 
 /**
  *
@@ -78,7 +83,11 @@ public class FinanceScreen extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
+<<<<<<< HEAD
                 "transaction_id", "user_id", "inventory_id", "?????"
+=======
+                "Title 1", "Title 2", "Title 3", "Title 4"
+>>>>>>> bfe0b3524a509f1e1b75fa4338e5c0ac6ed4a839
             }
         ));
         tblViewFinance.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -96,11 +105,14 @@ public class FinanceScreen extends javax.swing.JFrame {
         });
 
         btnCetak.setText("Cetak");
+<<<<<<< HEAD
         btnCetak.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCetakActionPerformed(evt);
             }
         });
+=======
+>>>>>>> bfe0b3524a509f1e1b75fa4338e5c0ac6ed4a839
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -135,7 +147,11 @@ public class FinanceScreen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblViewFinanceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblViewFinanceMouseClicked
+<<<<<<< HEAD
      
+=======
+
+>>>>>>> bfe0b3524a509f1e1b75fa4338e5c0ac6ed4a839
     }//GEN-LAST:event_tblViewFinanceMouseClicked
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
@@ -143,6 +159,7 @@ public class FinanceScreen extends javax.swing.JFrame {
         new SignInScreen().setVisible(true);
     }//GEN-LAST:event_btnLogoutActionPerformed
 
+<<<<<<< HEAD
             private DefaultTableModel tabmode;
 
     
@@ -157,6 +174,8 @@ public class FinanceScreen extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnCetakActionPerformed
 
+=======
+>>>>>>> bfe0b3524a509f1e1b75fa4338e5c0ac6ed4a839
     /**
      * @param args the command line arguments
      */
