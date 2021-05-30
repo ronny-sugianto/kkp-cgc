@@ -127,6 +127,7 @@ public class AdministratorScreen extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         menuReport = new javax.swing.JMenuItem();
+        menuReportTicket = new javax.swing.JMenuItem();
         jMenuChangePassword = new javax.swing.JMenuItem();
         jMenuSignOut = new javax.swing.JMenuItem();
 
@@ -177,7 +178,6 @@ public class AdministratorScreen extends javax.swing.JFrame {
         ));
         tblViewUsers.setCellSelectionEnabled(true);
         tblViewUsers.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tblViewUsers.setShowGrid(true);
         tblViewUsers.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblViewUsersMouseClicked(evt);
@@ -241,6 +241,15 @@ public class AdministratorScreen extends javax.swing.JFrame {
             }
         });
         jMenu2.add(menuReport);
+
+        menuReportTicket.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.SHIFT_MASK));
+        menuReportTicket.setText("Report Ticket");
+        menuReportTicket.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuReportTicketActionPerformed(evt);
+            }
+        });
+        jMenu2.add(menuReportTicket);
 
         jMenuChangePassword.setText("Change Password");
         jMenuChangePassword.addActionListener(new java.awt.event.ActionListener() {
@@ -430,6 +439,15 @@ public class AdministratorScreen extends javax.swing.JFrame {
        //
     }//GEN-LAST:event_menuReportActionPerformed
 
+    private void menuReportTicketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuReportTicketActionPerformed
+        // TODO add your handling code here:
+
+         JOptionPane.showMessageDialog(null,"Please wait...");
+        printOut("ReportTicket.jasper",null);
+        
+        
+    }//GEN-LAST:event_menuReportTicketActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -506,6 +524,7 @@ public class AdministratorScreen extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JMenuItem menuReport;
+    private javax.swing.JMenuItem menuReportTicket;
     private java.awt.PopupMenu popupMenu1;
     private javax.swing.JTable tblViewTickets;
     private javax.swing.JTable tblViewUsers;

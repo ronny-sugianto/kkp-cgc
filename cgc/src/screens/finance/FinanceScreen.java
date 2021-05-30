@@ -147,14 +147,13 @@ public class FinanceScreen extends javax.swing.JFrame {
 
     
     private void btnCetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCetakActionPerformed
-  
-         AdministratorScreen obj = new AdministratorScreen();
-         HashMap _hash = new HashMap();
+        // TODO add your handling code here:
+        AdministratorScreen obj = new AdministratorScreen();
+        HashMap _hash = new HashMap();
         String date =  JOptionPane.showInputDialog(null,"Masukan timestamp(date): ");
         _hash.put("timestamp",date);
       
         obj.printOut("ReportAllTransaction.jasper", _hash);
-        
     }//GEN-LAST:event_btnCetakActionPerformed
 
     /**
@@ -182,6 +181,7 @@ public class FinanceScreen extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(FinanceScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
