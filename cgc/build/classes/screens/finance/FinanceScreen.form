@@ -68,48 +68,12 @@
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="4" rowCount="4">
-<<<<<<< HEAD
-                <Column editable="true" title="transaction_id" type="java.lang.Object"/>
-                <Column editable="true" title="user_id" type="java.lang.Object"/>
-                <Column editable="true" title="inventory_id" type="java.lang.Object"/>
-                <Column editable="true" title="?????" type="java.lang.Object"/>
-              </Table>
-            </Property>
-            <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
-              <TableColumnModel selectionModel="0">
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                  <Title/>
-                  <Editor/>
-                  <Renderer/>
-                </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                  <Title/>
-                  <Editor/>
-                  <Renderer/>
-                </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                  <Title/>
-                  <Editor/>
-                  <Renderer/>
-                </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                  <Title/>
-                  <Editor/>
-                  <Renderer/>
-                </Column>
-              </TableColumnModel>
-            </Property>
-            <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
-              <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
-            </Property>
-=======
                 <Column editable="true" title="Title 1" type="java.lang.Object"/>
                 <Column editable="true" title="Title 2" type="java.lang.Object"/>
                 <Column editable="true" title="Title 3" type="java.lang.Object"/>
                 <Column editable="true" title="Title 4" type="java.lang.Object"/>
               </Table>
             </Property>
->>>>>>> bfe0b3524a509f1e1b75fa4338e5c0ac6ed4a839
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblViewFinanceMouseClicked"/>
@@ -129,12 +93,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Cetak"/>
       </Properties>
-<<<<<<< HEAD
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCetakActionPerformed"/>
       </Events>
-=======
->>>>>>> bfe0b3524a509f1e1b75fa4338e5c0ac6ed4a839
     </Component>
   </SubComponents>
 </Form>
